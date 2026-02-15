@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GhostRight - Coming Soon</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f2f5 0%, #e4e7eb 50%, #d5dae0 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #333;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Ethereal floating shapes */
+        body::before,
+        body::after {
+            content: '';
+            position: fixed;
+            border-radius: 50%;
+            opacity: 0.15;
+            z-index: 0;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        body::before {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+            top: -100px;
+            left: -100px;
+        }
+
+        body::after {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(220, 225, 230, 0.6) 0%, rgba(220, 225, 230, 0) 70%);
+            bottom: -50px;
+            right: -50px;
+            animation-delay: -10s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translate(0, 0) scale(1);
+            }
+            33% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+            66% {
+                transform: translate(-20px, 20px) scale(0.9);
+            }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            max-width: 650px;
+            width: 100%;
+            padding: 50px 40px;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 20px;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 3em;
+            color: #4a5568;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.3em;
+            color: #718096;
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        .intro {
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .form-section {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .form-section h2 {
+            font-size: 1.5em;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            color: #555;
+            margin-bottom: 8px;
+            font-size: 0.95em;
+        }
+
+        input[type="text"],
+        input[type="email"] {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1em;
+            transition: border-color 0.3s;
+            font-family: inherit;
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus {
+            outline: none;
+            border-color: #718096;
+        }
+
+        .checkbox-section {
+            text-align: left;
+            margin: 25px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+        }
+
+        .checkbox-section h3 {
+            font-size: 1.1em;
+            color: #4a5568;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .checkbox-group label {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+            font-weight: 400;
+            cursor: pointer;
+            font-size: 0.95em;
+        }
+
+        .checkbox-group input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin-right: 12px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        button {
+            background: linear-gradient(135deg, #4a5568 0%, #2d3748 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(74, 85, 104, 0.3);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .contact {
+            margin-top: 30px;
+            padding-top: 30px;
+            border-top: 1px solid #e0e0e0;
+            color: #777;
+            font-size: 0.95em;
+        }
+
+        .contact a {
+            color: #4a5568;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .contact a:hover {
+            text-decoration: underline;
+        }
+
+        .success-message {
+            display: none;
+            background: #4caf50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 30px 25px;
+            }
+
+            h1 {
+                font-size: 2.2em;
+            }
+
+            .tagline {
+                font-size: 1.1em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <img src="./logo.png" alt="GhostRight Logo" class="logo">
+        <h1>GhostRight</h1>
+        <p class="tagline">The Right Voice for Your Writing—Every Time</p>
+        
+        <p class="intro">
+            We're building something special for ghostwriters, editors, and writing professionals. Sign up below to get updates and help shape what we create!
+        </p>
+
+        <div class="form-section">
+            <h2>What Do You Want To See?</h2>
+            <div class="success-message" id="successMessage">
+                Thank you! We'll be in touch soon.
+            </div>
+            
+            <form id="signupForm">
+                <div class="checkbox-section">
+                    <h3>Ghostwriting Tools</h3>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" name="features" value="1-100 score: Did you match your client's voice?">
+                            1–100 score: Did you match your client's voice?
+                        </label>
+                        <label>
+                            <input type="checkbox" name="features" value="An author's fingerprint and custom tips to match">
+                            An author's "fingerprint" and custom tips to match
+                        </label>
+                        <label>
+                            <input type="checkbox" name="features" value="Individual feedback and recommendations on drafts">
+                            Individual feedback and recommendations on drafts
+                        </label>
+                    </div>
+                </div>
+
+                <div class="checkbox-section">
+                    <h3>Text Analysis</h3>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" name="features" value="Simple and free options">
+                            Simple and free options
+                        </label>
+                        <label>
+                            <input type="checkbox" name="features" value="Basic analysis, e.g. words per sentence, Flesch-Kincaid">
+                            Basic analysis, e.g. words per sentence, Flesch-Kincaid
+                        </label>
+                        <label>
+                            <input type="checkbox" name="features" value="Advanced text analyses, e.g. lexical complexity, punctuation, detailed academic analyses">
+                            Advanced text analyses, e.g. lexical complexity, punctuation, detailed academic analyses
+                        </label>
+                        <label>
+                            <input type="checkbox" name="features" value="Custom recommendations for bigger projects">
+                            Custom recommendations for bigger projects
+                        </label>
+                        <label>
+                            <input type="checkbox" name="features" value="A la carte menu of services">
+                            A la carte "menu" of services
+                        </label>
+                    </div>
+                </div>
+
+                <div class="checkbox-section">
+                    <h3>Other Services</h3>
+                    <div class="checkbox-group">
+                        <label>
+                            <input type="checkbox" name="features" value="Copyediting — Free AI Review">
+                            Copyediting — Free AI Review
+                        </label>
+                        <label>
+                            <input type="checkbox" name="features" value="Copyediting — Paid Personal Review">
+                            Copyediting — Paid Personal Review
+                        </label>
+                        <label>
+                            <input type="checkbox" name="features" value="Plagiarism detection tools">
+                            Plagiarism detection tools
+                        </label>
+                    </div>
+                </div>
+
+                <h3 style="font-size: 1.2em; color: #333; margin: 30px 0 20px 0; text-align: left;">Join Our Waitlist</h3>
+
+                <div class="form-group">
+                    <label for="name">Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <button type="submit">Join Waitlist</button>
+            </form>
+        </div>
+
+        <div class="contact">
+            Questions? Reach out to us at<br>
+            <a href="mailto:GhostRightLLC@gmail.com">GhostRightLLC@gmail.com</a>
+        </div>
+    </div>
+
+    <script>
+        // This is a placeholder - you'll replace this URL with your actual Google Form URL
+        const GOOGLE_FORM_URL = 'YOUR_GOOGLE_FORM_URL_HERE';
+
+        document.getElementById('signupForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                name: document.getElementById('name').value,
+                email: document.getElementById('email').value,
+                features: Array.from(document.querySelectorAll('input[name="features"]:checked'))
+                    .map(cb => cb.value).join(', ')
+            };
+
+            // For now, show success message
+            // Once you set up the Google Form, this will actually submit to it
+            document.getElementById('successMessage').style.display = 'block';
+            document.getElementById('signupForm').reset();
+
+            // Scroll to success message
+            document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+
+            // In the instructions, I'll show you how to connect this to your actual Google Form
+            console.log('Form submitted:', formData);
+        });
+    </script>
+</body>
+</html>
