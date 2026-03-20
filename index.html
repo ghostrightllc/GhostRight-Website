@@ -2,13 +2,12 @@
 <html lang="en">
 <head>
 <!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17953309002"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G80H8FHTRB"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
   gtag('js', new Date());
-
-  gtag('config', 'AW-17953309002');
+  gtag('config', 'G-G80H8FHTRB');
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -468,7 +467,7 @@ footer a { color: var(--green); text-decoration: none; }
       <div class="upload-left">
         <div class="steps-intro">
           <p class="step-label">Step One:</p>
-          <p class="step-text">Upload writing samples or paste text in the boxes</p>
+          <p class="step-text">Upload writing samples or paste text</p>
           <p class="step-label">Step Two:</p>
           <p class="step-text">Click the green button</p>
           <p class="step-thats-it"><em>That's it!</em></p>
@@ -484,6 +483,7 @@ footer a { color: var(--green); text-decoration: none; }
           <li>Ghostwriter recommendations to match your voice</li>
           <li><em>and more!</em></li>
         </ul>
+        <p style="font-size: 0.9rem; color: var(--text-light); margin-top: 12px;">See it in action: <a href="lincoln.html" style="color: var(--green); font-weight: 600;">Lincoln</a> · <a href="austen.html" style="color: var(--green); font-weight: 600;">Austen</a> · <a href="london.html" style="color: var(--green); font-weight: 600;">Jack London</a></p>
       </div>
 
       <div class="upload-right">
@@ -639,7 +639,8 @@ footer a { color: var(--green); text-decoration: none; }
 
 <footer>
   <div class="container">
-    <p>© 2026 GhostRight LLC · <a id="contact-link" href="#">Contact Us</a></p>
+    <p style="margin-bottom: 8px;">See examples: <a href="lincoln.html">Abraham Lincoln</a> · <a href="austen.html">Jane Austen</a> · <a href="london.html">Jack London</a></p>
+    <p>© 2026 GhostRight LLC · <a id="contact-link" href="#">Contact Us</a> · <a href="faq.html">FAQ</a></p>
   </div>
 </footer>
 
@@ -747,9 +748,13 @@ async function runAnalysis() {
   const formData = new FormData();
   selectedFiles.forEach((f, i) => formData.append(`file${i + 1}`, f, f.name));
 
-  // Add pasted text as a .txt file
-  const pastedText = pasteZone.value.trim();
+  // Add pasted text as a .txt file, silently truncated to ~50k words
+  let pastedText = pasteZone.value.trim();
   if (pastedText.length > 0) {
+    const words = pastedText.split(/\s+/);
+    if (words.length > 50000) {
+      pastedText = words.slice(0, 50000).join(' ');
+    }
     const blob = new Blob([pastedText], { type: 'text/plain' });
     formData.append('pasted_text', blob, 'pasted_text.txt');
   }

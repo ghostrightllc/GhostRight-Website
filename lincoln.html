@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<!-- saved from url=(0023)https://ghostright.org/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<!-- Google Analytics -->
+<script type="text/javascript" async="" src="https://cdn.jsdelivr.net/npm/js"></script><script async="" src="https://cdn.jsdelivr.net/npm/js(1)"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'AW-17953309002');
+</script>
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GhostRight — Abraham Lincoln Voice Profile</title>
+<link rel="icon" href="https://ghostright.org/checkmarkfavicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script><script type="text/javascript" async="" src="https://cdn.jsdelivr.net/npm/f.txt"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-cloud@1.2.7/build/d3.layout.cloud.min.js"></script>
+<style>
+:root {
+  --green: #4CB050;
+  --green-dark: #3D8B40;
+  --green-light: #E8F5E9;
+  --coral: #D4654A;
+  --amber: #E8963A;
+  --slate: #455A64;
+  --slate-light: #78909C;
+  --bg: #FAFAF8;
+  --white: #FFFFFF;
+  --text: #2C3E50;
+  --text-light: #607D8B;
+  --border: #E0E0E0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+h1, h2, h3 { font-family: 'Source Serif 4', serif; color: var(--green-dark); }
+
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+
+/* ---- Header ---- */
+header {
+  padding: 20px 0 12px;
+  text-align: center;
+  border-bottom: 2px solid var(--green-light);
+}
+header img { max-width: 160px; margin-bottom: 4px; }
+header h1 { font-size: 1.5rem; color: var(--green-dark); margin-bottom: 0; }
+
+/* ---- Upload area ---- */
+#upload-section { padding: 28px 0; }
+#upload-section .container { max-width: 960px; }
+
+.upload-row {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+.upload-left {
+  flex: 2;
+  text-align: left;
+}
+.upload-right {
+  flex: 1;
+  min-width: 260px;
+}
+
+.steps-intro { margin-bottom: 16px; }
+.step-label {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--green);
+  margin-bottom: 0;
+  margin-top: 12px;
+}
+.step-label:first-child { margin-top: 0; }
+.step-text {
+  font-size: 1.05rem;
+  color: var(--text);
+  margin-bottom: 4px;
+}
+.step-thats-it {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: var(--green-dark);
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+.features-intro {
+  font-size: 1rem;
+  color: var(--text);
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+.features-list {
+  text-align: left;
+  margin-bottom: 0;
+  font-size: 0.9rem;
+  color: var(--slate);
+  line-height: 1.7;
+  padding-left: 20px;
+}
+.features-list li { padding-left: 4px; }
+
+.drop-zone {
+  border: 3px dashed var(--border);
+  border-radius: 16px;
+  padding: 32px 20px;
+  background: var(--white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+}
+.drop-zone:hover, .drop-zone.drag-over {
+  border-color: var(--green);
+  background: var(--green-light);
+}
+.drop-zone-icon { font-size: 2.2rem; margin-bottom: 8px; }
+.drop-zone-text { font-size: 0.95rem; color: var(--slate); font-weight: 500; }
+.drop-zone-hint { font-size: 0.8rem; color: var(--text-light); margin-top: 6px; }
+
+.paste-divider {
+  text-align: center;
+  color: var(--text-light);
+  font-size: 0.85rem;
+  margin: 12px 0;
+  font-weight: 500;
+}
+
+.paste-zone {
+  width: 100%;
+  min-height: 80px;
+  border: 2px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text);
+  resize: vertical;
+  background: var(--white);
+  transition: border-color 0.3s;
+}
+.paste-zone:focus {
+  outline: none;
+  border-color: var(--green);
+}
+.paste-zone::placeholder { color: var(--text-light); }
+
+#file-input { display: none; }
+
+.file-list {
+  margin-top: 12px;
+  text-align: left;
+  max-height: 150px;
+  overflow-y: auto;
+}
+.file-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 12px;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 4px;
+  font-size: 0.8rem;
+}
+.file-item .name { color: var(--slate); font-weight: 500; }
+.file-item .size { color: var(--text-light); font-size: 0.75rem; }
+.file-item .remove {
+  color: var(--coral);
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+#analyze-btn {
+  margin-top: 16px;
+  padding: 12px 36px;
+  font-size: 1.05rem;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: none;
+  width: 100%;
+}
+#analyze-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+
+@media (max-width: 700px) {
+  .upload-row { flex-direction: column; }
+  .upload-right { min-width: auto; }
+}
+#analyze-btn:disabled { background: var(--slate-light); cursor: not-allowed; transform: none; }
+
+/* ---- Loading ---- */
+#loading-section {
+  display: none;
+  padding: 40px 0 60px;
+  text-align: center;
+  overflow: hidden;
+}
+.ghost-parade {
+  position: relative;
+  height: 160px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.ghost-parade img {
+  position: absolute;
+  height: 65px;
+  opacity: 0.85;
+}
+/* Right-moving ghosts */
+.ghost-r {
+  animation: floatRight var(--speed) linear infinite, bobble 1.8s ease-in-out infinite;
+}
+/* Left-moving ghosts (flipped) */
+.ghost-l {
+  transform: scaleX(-1);
+  animation: floatLeft var(--speed) linear infinite, bobbleFlip 1.8s ease-in-out infinite;
+}
+
+@keyframes floatRight {
+  0% { left: -100px; }
+  100% { left: calc(100% + 100px); }
+}
+@keyframes floatLeft {
+  0% { left: calc(100% + 100px); }
+  100% { left: -100px; }
+}
+@keyframes bobble {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes bobbleFlip {
+  0%, 100% { transform: scaleX(-1) translateY(0); }
+  50% { transform: scaleX(-1) translateY(-8px); }
+}
+
+.progress-wrap {
+  max-width: 400px;
+  margin: 0 auto 20px;
+  background: var(--border);
+  border-radius: 10px;
+  height: 14px;
+  overflow: hidden;
+}
+.progress-bar {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--green), var(--green-dark));
+  border-radius: 10px;
+  transition: width 0.5s ease;
+}
+#loading-text { font-size: 1.1rem; color: var(--slate); font-weight: 500; }
+#loading-pct { font-size: 0.85rem; color: var(--text-light); margin-top: 6px; }
+
+/* ---- Report ---- */
+#report-section { display: none; padding: 40px 0 80px; }
+
+.report-header {
+  text-align: left;
+  margin-bottom: 40px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--green-light);
+}
+.report-header h2 { font-size: 1.3rem; color: var(--green); margin-bottom: 0; }
+.report-header h1 { font-size: 2rem; color: var(--slate); margin-bottom: 8px; }
+.report-header .corpus-info { color: var(--text-light); font-size: 0.9rem; }
+
+.section { margin-bottom: 48px; }
+.section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid var(--green-light);
+}
+.section h3 { font-size: 1.15rem; margin-bottom: 12px; margin-top: 28px; }
+
+/* Summary table */
+.summary-table { width: 100%; border-collapse: collapse; }
+.summary-table th {
+  text-align: left;
+  padding: 10px 16px;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 2px solid var(--border);
+}
+.summary-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.95rem;
+}
+.summary-table tr:nth-child(even) { background: var(--green-light); }
+.summary-table td:first-child { font-weight: 600; color: var(--slate); }
+
+.hint {
+  display: inline-block;
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  background: var(--green);
+  color: white;
+  font-size: 11px;
+  text-align: center;
+  line-height: 16px;
+  cursor: help;
+  margin-left: 4px;
+  vertical-align: middle;
+  position: relative;
+}
+.hint:hover::after {
+  content: attr(data-tip);
+  position: absolute;
+  left: 24px; top: -4px;
+  background: var(--slate);
+  color: white;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 400;
+  width: 260px;
+  z-index: 100;
+  line-height: 1.4;
+}
+
+/* Charts */
+.chart-container {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+}
+.chart-container canvas { max-height: 350px; }
+
+/* Word cloud */
+.wordcloud-container {
+  background: var(--white);
+  border-radius: 12px;
+  padding: 24px;
+  border: 1px solid var(--border);
+  margin-bottom: 20px;
+  text-align: center;
+  min-height: 300px;
+}
+.wordcloud-container h3 { text-align: center; margin-bottom: 4px; }
+.wordcloud-container .subtitle { color: var(--text-light); font-size: 0.85rem; margin-bottom: 16px; }
+
+/* Word/phrase lists */
+.word-list { columns: 2; column-gap: 24px; }
+.word-list .item {
+  display: flex;
+  justify-content: space-between;
+  padding: 4px 0;
+  break-inside: avoid;
+  font-size: 0.9rem;
+}
+.word-list .item .word { font-weight: 600; color: var(--slate); }
+.word-list .item .count { color: var(--text-light); }
+
+/* Recommendations */
+.rec-item {
+  padding: 12px 16px;
+  background: var(--white);
+  border-left: 4px solid var(--green);
+  border-radius: 0 8px 8px 0;
+  margin-bottom: 10px;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+.rec-item strong { color: var(--green-dark); }
+
+/* Notes */
+.note {
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin-top: 12px;
+  font-style: italic;
+}
+
+/* Error */
+#error-section {
+  display: none;
+  padding: 60px 0;
+  text-align: center;
+}
+.error-box {
+  background: #FFF3F0;
+  border: 2px solid var(--coral);
+  border-radius: 12px;
+  padding: 32px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+.error-box h3 { color: var(--coral); margin-bottom: 8px; }
+.error-box p { color: var(--slate); }
+#try-again-btn {
+  margin-top: 16px;
+  padding: 10px 32px;
+  background: var(--coral);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+}
+
+.bottom-btn {
+  display: block;
+  margin: 40px auto 0;
+  padding: 14px 48px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-family: 'DM Sans', sans-serif;
+  background: var(--green);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.bottom-btn:hover { background: var(--green-dark); }
+
+footer {
+  text-align: center;
+  padding: 32px 0;
+  font-size: 0.85rem;
+  color: var(--text-light);
+  border-top: 1px solid var(--border);
+}
+footer a { color: var(--green); text-decoration: none; }
+
+<style>
+.sticky-cta {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: var(--green-dark);
+  color: white;
+  padding: 10px 0;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+}
+.sticky-cta .container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.sticky-cta .cta-text {
+  font-family: 'Source Serif 4', serif;
+  font-size: 1rem;
+  font-weight: 600;
+}
+.sticky-cta .cta-btn {
+  padding: 8px 24px;
+  background: white;
+  color: var(--green-dark);
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+}
+.sticky-cta .cta-btn:hover { background: var(--green-light); }
+.sticky-cta .cta-logo { height: 32px; vertical-align: middle; margin-right: 4px; }
+/* Push content down so it's not hidden behind sticky bar */
+#report-section { padding-top: 70px !important; }
+</style>
+</style>
+<style>._button_10caf_25{border-radius:8px;border:unset;cursor:pointer;transition:.3s}._button_10caf_25:disabled{opacity:.3;cursor:not-allowed}._button_default_10caf_35{background:transparent;color:#43434e}._button_default_10caf_35:hover{background:#f3f4f7}._button_default_10caf_35:active{background:#8e8e8e}._button_default_10caf_35 ._svg_10caf_45 *{fill:#43434e}._button_primary_10caf_48{background:#007eff;color:#fff}._button_primary_10caf_48:hover{background:#3398ff}._button_primary_10caf_48:active{background:#66b2ff}._button_primary_10caf_48 ._svg_10caf_45 *{fill:#fff}._button_link_10caf_61{background:transparent;color:#007eff}._button_link_10caf_61:hover{color:#3398ff}._button_link_10caf_61:active{color:#66b2ff}._button_link_10caf_61 ._svg_10caf_45 *{fill:#007eff}._button_link_10caf_61 ._svg_10caf_45 *:hover{fill:#3398ff}._button_link_10caf_61 ._svg_10caf_45 *:active{fill:#66b2ff}._button_large_10caf_80{padding:12px 16px}._button_large_10caf_80 *{font-size:16px}._button_medium_10caf_86{padding:8px 16px}._button_medium_10caf_86 *{font-size:16px}._button_small_10caf_92{padding:4px;min-height:24px}._button_small_10caf_92 *{font-size:12px}._flexBox_9xdww_14{flex-flow:unset}._gap_extraTiny_9xdww_18{gap:2px}._gap_tiny_9xdww_22{gap:4px}._gap_extraSmall_9xdww_26{gap:6px}._gap_small_9xdww_30{gap:8px}._gap_medium_9xdww_34{gap:16px}._gap_normal_9xdww_38{gap:24px}._gap_large_9xdww_42{gap:32px}._gap_xLarge_9xdww_46{gap:48px}._gap_xxLarge_9xdww_50{gap:56px}._gap_extraLarge_9xdww_54{gap:64px}._column_9xdww_58{flex-direction:column!important}._flexWrap_9xdww_62{flex-wrap:wrap}._popover_12uvb_1{position:fixed;padding:8px 10px;z-index:2147483647;background:#31363de6;border-radius:4px;color:#fff;font-size:14px}._buttons_12uvb_11{position:fixed;top:0;right:0;padding:8px;z-index:2147483647}._popup_hcu7e_1{position:fixed;z-index:2147483649;background:#ffffffe6;border-radius:4px;color:#000;font-size:14px;line-height:1.286;width:350px;-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px);box-shadow:0 0 7px -5px #000}._popup_hcu7e_1:before{border-color:rgba(255,255,255,.9) transparent;border-width:0 7px 7px 7px;left:7px;top:-7px;border-style:solid;content:".";display:block;height:0;position:absolute;text-indent:-30000px;width:0}._color_hcu7e_27{width:20px;height:20px;cursor:pointer;flex-shrink:0}._styleContainer_hcu7e_34{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}._extraTiny_dg7lc_14{padding:2px}._extraTinyVR_dg7lc_18{padding-top:2px;padding-bottom:2px}._extraTinyHR_dg7lc_23{padding-left:2px;padding-right:2px}._extraTinyTop_dg7lc_28{padding-top:2px}._extraTinyRight_dg7lc_32{padding-right:2px}._extraTinyBottom_dg7lc_36{padding-bottom:2px}._extraTinyLeft_dg7lc_40{padding-left:2px}._tiny_dg7lc_44{padding:4px}._tinyVR_dg7lc_48{padding-top:4px;padding-bottom:4px}._tinyHR_dg7lc_53{padding-left:4px;padding-right:4px}._tinyTop_dg7lc_58{padding-top:4px}._tinyRight_dg7lc_62{padding-right:4px}._tinyBottom_dg7lc_66{padding-bottom:4px}._tinyLeft_dg7lc_70{padding-left:4px}._extraSmall_dg7lc_74{padding:6px}._extraSmallVR_dg7lc_78{padding-top:6px;padding-bottom:6px}._extraSmallHR_dg7lc_83{padding-left:6px;padding-right:6px}._extraSmallTop_dg7lc_88{padding-top:6px}._extraSmallRight_dg7lc_92{padding-right:6px}._extraSmallBottom_dg7lc_96{padding-bottom:6px}._extraSmallLeft_dg7lc_100{padding-left:6px}._small_dg7lc_104{padding:8px}._smallVR_dg7lc_108{padding-top:8px;padding-bottom:8px}._smallHR_dg7lc_113{padding-left:8px;padding-right:8px}._smallTop_dg7lc_118{padding-top:8px}._smallRight_dg7lc_122{padding-right:8px}._smallBottom_dg7lc_126{padding-bottom:8px}._smallLeft_dg7lc_130{padding-left:8px}._medium_dg7lc_134{padding:16px}._mediumVR_dg7lc_138{padding-top:16px;padding-bottom:16px}._mediumHR_dg7lc_143{padding-left:16px;padding-right:16px}._mediumTop_dg7lc_148{padding-top:16px}._mediumRight_dg7lc_152{padding-right:16px}._mediumBottom_dg7lc_156{padding-bottom:16px}._mediumLeft_dg7lc_160{padding-left:16px}._normal_dg7lc_164{padding:24px}._normalVR_dg7lc_168{padding-top:24px;padding-bottom:24px}._normalHR_dg7lc_173{padding-left:24px;padding-right:24px}._normalTop_dg7lc_178{padding-top:24px}._normalRight_dg7lc_182{padding-right:24px}._normalBottom_dg7lc_186{padding-bottom:24px}._normalLeft_dg7lc_190{padding-left:24px}._large_dg7lc_194{padding:32px}._largeVR_dg7lc_198{padding-top:32px;padding-bottom:32px}._largeHR_dg7lc_203{padding-left:32px;padding-right:32px}._largeTop_dg7lc_208{padding-top:32px}._largeRight_dg7lc_212{padding-right:32px}._largeBottom_dg7lc_216{padding-bottom:32px}._largeLeft_dg7lc_220{padding-left:32px}._xLarge_dg7lc_224{padding:48px}._xLargeVR_dg7lc_228{padding-top:48px;padding-bottom:48px}._xLargeHR_dg7lc_233{padding-left:48px;padding-right:48px}._xLargeTop_dg7lc_238{padding-top:48px}._xLargeRight_dg7lc_242{padding-right:48px}._xLargeBottom_dg7lc_246{padding-bottom:48px}._xLargeLeft_dg7lc_250{padding-left:48px}._xxLarge_dg7lc_254{padding:56px}._xxLargeVR_dg7lc_258{padding-top:56px;padding-bottom:56px}._xxLargeHR_dg7lc_263{padding-left:56px;padding-right:56px}._xxLargeTop_dg7lc_268{padding-top:56px}._xxLargeRight_dg7lc_272{padding-right:56px}._xxLargeBottom_dg7lc_276{padding-bottom:56px}._xxLargeLeft_dg7lc_280{padding-left:56px}._extraLarge_dg7lc_284{padding:64px}._extraLargeVR_dg7lc_288{padding-top:64px;padding-bottom:64px}._extraLargeHR_dg7lc_293{padding-left:64px;padding-right:64px}._extraLargeTop_dg7lc_298{padding-top:64px}._extraLargeRight_dg7lc_302{padding-right:64px}._extraLargeBottom_dg7lc_306{padding-bottom:64px}._extraLargeLeft_dg7lc_310{padding-left:64px}._size_tiny_ldink_23,._size_tiny_ldink_23 *{font-size:12px}._size_small_ldink_27,._size_small_ldink_27 *{font-size:16px}._size_medium_ldink_31,._size_medium_ldink_31 *{font-size:18px}._size_large_ldink_35,._size_large_ldink_35 *{font-size:32px}._weight_thin_ldink_39,._weight_thin_ldink_39 *{font-weight:100}._weight_extraLight_ldink_43,._weight_extraLight_ldink_43 *{font-weight:200}._weight_light_ldink_47,._weight_light_ldink_47 *{font-weight:300}._weight_normal_ldink_51,._weight_normal_ldink_51 *{font-weight:400}._weight_medium_ldink_55,._weight_medium_ldink_55 *{font-weight:500}._weight_semiBold_ldink_59,._weight_semiBold_ldink_59 *{font-weight:600}._weight_bold_ldink_63,._weight_bold_ldink_63 *{font-weight:700}._weight_extraBold_ldink_67,._weight_extraBold_ldink_67 *{font-weight:800}._lineHeight_ldink_71{line-height:100%}._secondary_ldink_75{color:#8e8e8e}._modal_ib2ay_25{position:fixed;top:0;left:0;width:100%;height:100%;display:flex;justify-content:center;align-items:center;z-index:2147483649}._modal_ib2ay_25 ._background_ib2ay_36{position:absolute;top:0;left:0;width:100%;height:100%;transition:.3s;opacity:0;overflow:auto;background-color:color-mix(in srgb,#000000 60%,white 0%);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}._modal_ib2ay_25 ._window_ib2ay_48{min-width:280px;max-width:560px;background:#fff;border-radius:6px;padding:16px;z-index:1;position:relative;opacity:0;transform:scale(.01);transition:.3s;display:flex;flex-direction:column;box-shadow:0 2px 6px 2px #00000026,0 1px 2px #0000004d;overflow:auto}._modal_ib2ay_25 ._window_ib2ay_48 ._loading_ib2ay_64{position:absolute;width:100%;height:100%;top:0;left:0;background:#000000b3}._modal_ib2ay_25 ._window_ib2ay_48 ._loading_ib2ay_64 img{width:100px}._modal_visible_ib2ay_76 ._background_ib2ay_36{opacity:1}._modal_visible_ib2ay_76 ._window_ib2ay_48{opacity:1;transform:scale(1)}._modal_hidden_ib2ay_83 ._background_ib2ay_36{opacity:0}._modal_hidden_ib2ay_83 ._window_ib2ay_48{opacity:0;transform:scale(.01)}._modal_hiddenDone_ib2ay_90 ._background_ib2ay_36{opacity:0}._modal_hiddenDone_ib2ay_90 ._window_ib2ay_48{opacity:0;transform:scale(.01)}._color_13dyv_1{padding:0 8px;border-radius:8px;width:100%;box-shadow:0 0 7px -5px #000;font-weight:800;flex-shrink:0}
+</style></head>
+<body>
+
+<div class="sticky-cta">
+  <div class="container">
+    <img src="https://ghostright.org/logo.png" alt="GhostRight" class="cta-logo">
+    <span class="cta-text">Want to see YOUR writing profile?</span>
+    <a href="https://ghostright.org" class="cta-btn">Try It Free →</a>
+  </div>
+</div>
+
+
+<header id="main-header" style="display: none;">
+  <div class="container">
+    <img src="https://cdn.jsdelivr.net/npm/logo.png" alt="GhostRight Logo">
+    <h1>What's Your GhostRight Writing Profile?</h1>
+  </div>
+</header>
+
+<!-- UPLOAD -->
+<div id="upload-section" style="display: none;">
+  <div class="container">
+    <div class="upload-row">
+      <div class="upload-left">
+        <div class="steps-intro">
+          <p class="step-label">Step One:</p>
+          <p class="step-text">Upload writing samples or paste text in the boxes</p>
+          <p class="step-label">Step Two:</p>
+          <p class="step-text">Click the green button</p>
+          <p class="step-thats-it"><em>That's it!</em></p>
+        </div>
+
+        <p class="features-intro">Quickly receive your GhostRight writing profile <em>(custom-built analysis, not A.I.)</em> including:</p>
+        <ul class="features-list">
+          <li>Reading level</li>
+          <li>Your personal "Word Choice DNA"</li>
+          <li>Punctuation usage compared to other writers</li>
+          <li>Your most distinctive words and phrases</li>
+          <li>Sentence construction data</li>
+          <li>Ghostwriter recommendations to match your voice</li>
+          <li><em>and more!</em></li>
+        </ul>
+      </div>
+
+      <div class="upload-right">
+        <div class="drop-zone" id="drop-zone">
+          <div class="drop-zone-icon">📄</div>
+          <div class="drop-zone-text">Drop files here or click to browse</div>
+          <div class="drop-zone-hint">.docx and .txt · 5,000+ words recommended</div>
+        </div>
+        <input type="file" id="file-input" multiple="" accept=".docx,.txt">
+
+        <div class="paste-divider">— or paste text directly —</div>
+        <textarea class="paste-zone" id="paste-zone" placeholder="Paste writing samples here..."></textarea>
+
+        <div class="file-list" id="file-list"></div>
+
+        <button id="analyze-btn" onclick="runAnalysis()" style="display: block;">Generate Voice Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="loading-section" style="display: none;">
+  <div class="container">
+    <div class="ghost-parade">
+      <!-- Right-moving ghosts -->
+      <img src="https://cdn.jsdelivr.net/npm/ghost-pencil.png" class="ghost-r" style="--speed:7s; top:5px; animation-delay:-1s,-0.2s;">
+      <img src="https://cdn.jsdelivr.net/npm/ghost-eraser.png" class="ghost-r" style="--speed:9s; top:55px; animation-delay:-4s,-0.8s;">
+      <img src="https://cdn.jsdelivr.net/npm/ghost-highlighter.png" class="ghost-r" style="--speed:6s; top:85px; animation-delay:-2s,-0.5s;">
+      <img src="https://cdn.jsdelivr.net/npm/ghost-calculator.png" class="ghost-r" style="--speed:10s; top:30px; animation-delay:-7s,-1.1s;">
+      <!-- Left-moving ghosts (flipped) -->
+      <img src="https://cdn.jsdelivr.net/npm/ghost-quillandink.png" class="ghost-l" style="--speed:8s; top:70px; animation-delay:-3s,-0.4s;">
+      <img src="https://cdn.jsdelivr.net/npm/ghost-typewriter.png" class="ghost-l" style="--speed:11s; top:10px; animation-delay:-6s,-0.9s;">
+      <img src="https://cdn.jsdelivr.net/npm/ghost-bluescissors.png" class="ghost-l" style="--speed:7.5s; top:45px; animation-delay:-1.5s,-0.6s;">
+      <img src="https://cdn.jsdelivr.net/npm/ghost-redmarker2.png" class="ghost-l" style="--speed:9.5s; top:90px; animation-delay:-5s,-1.3s;">
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="progress-bar" style="width: 100%;"></div></div>
+    <div id="loading-text">Done!</div>
+    <div id="loading-pct">100%</div>
+  </div>
+</div>
+
+<!-- ERROR -->
+<div id="error-section">
+  <div class="container">
+    <div class="error-box">
+      <h3>Analysis Failed</h3>
+      <p id="error-message">Something went wrong.</p>
+      <button id="try-again-btn" onclick="resetToUpload()">Try Again</button>
+    </div>
+  </div>
+</div>
+
+<!-- REPORT -->
+<div id="report-section" style="display: block;">
+  <div class="container">
+
+    <div class="report-header">
+      <img src="https://cdn.jsdelivr.net/npm/logo.png" alt="GhostRight" style="max-width:180px;margin-bottom:8px;">
+      <h2>Author Voice Profile</h2>
+      <h1 id="report-author-name">Author Voice Profile: Abraham Lincoln</h1>
+      <div class="corpus-info" id="corpus-info">1 document(s) · ~30,962 words · ~1248 sentences</div>
+    </div>
+
+    <div class="section" id="section-summary">
+      <h2>Executive Summary</h2>
+      <table class="summary-table" id="summary-table"><thead><tr><th></th><th>This Author</th><th>Benchmark</th></tr></thead><tbody><tr><td>Reading level <span class="hint" data-tip="The grade level a reader needs to understand this writing">?</span></td><td>Grade 11.4 (Flesch-Kincaid)</td><td>USA Today ~8 · NYT ~12 · Academic journals ~16</td></tr><tr><td>Contractions <span class="hint" data-tip="e.g. don&#39;t, can&#39;t — formality vs. conversational tone">?</span></td><td>0.8 per 1k words</td><td>Academic prose ~0 · Newspapers ~3 · Podcasts ~20+</td></tr><tr><td>Passive voice <span class="hint" data-tip="Subject receives action rather than performs it">?</span></td><td>~33% of sentences</td><td>Ad copy ~5% · News ~12% · Scientific papers ~25%</td></tr><tr><td>Direct address ("you") <span class="hint" data-tip="How often the author speaks directly to the reader">?</span></td><td>11.1 per 1k words</td><td>Academic ~0 · Op-eds ~3 · Self-help books ~15+</td></tr><tr><td>Avg. sentence length <span class="hint" data-tip="Average words per sentence">?</span></td><td>25 words</td><td>Children's books ~10 · Fiction ~15 · Legal writing ~25</td></tr><tr><td>Sentence rhythm <span class="hint" data-tip="How much sentence length varies">?</span></td><td>Range: 5–50 wps</td><td>Low variation (SD ~5) · Moderate (~9) · High (~14+)</td></tr><tr><td>Vocabulary richness <span class="hint" data-tip="How much an author repeats words">?</span></td><td>Yule's K = 106</td><td>Essay ~60 · Average prose ~100 · Ads &amp; speeches ~150+</td></tr></tbody></table>
+    </div>
+
+    <div class="section" id="section-recommendations">
+      <h2>Ghostwriter Recommendations to Match This Author</h2>
+      <div id="recommendations-list"><div class="rec-item"><strong>Sentence length:</strong> Aim for 15–35 words. Mix short and long freely.</div><div class="rec-item"><strong>Contractions:</strong> Avoid — write formally (0.8/1k).</div><div class="rec-item"><strong>Passive voice:</strong> High — mirror passive constructions.</div><div class="rec-item"><strong>Direct address:</strong> Address the reader as "you" freely.</div><div class="rec-item"><strong>Hedging vs. certainty:</strong> Balanced — use both registers.</div><div class="rec-item"><strong>Transitions:</strong> Favorites: <em>however</em>, <em>indeed</em>, <em>in fact</em>, <em>for instance</em>, <em>in short</em>. Use these; avoid others.</div></div>
+    </div>
+
+    <div class="section" id="section-vocab">
+      <h2>Distinctive Vocabulary</h2>
+      <div class="wordcloud-container">
+        <h3>Words This Author Overuses vs. General English</h3>
+        <div class="subtitle">Proper nouns removed · sized by overuse ratio</div>
+        <div id="wordcloud-single"><svg width="802" height="300"><g transform="translate(401,150)"><text text-anchor="middle" transform="translate(-23,-25)" style="font-size: 52px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(212, 101, 74);">slavery</text><text text-anchor="middle" transform="translate(-82,38)" style="font-size: 33px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(151, 135, 77);">whig</text><text text-anchor="middle" transform="translate(-64,66)" style="font-size: 23px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(117, 153, 78);">negro</text><text text-anchor="middle" transform="translate(88,19)" style="font-size: 21px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(112, 156, 78);">entitle</text><text text-anchor="middle" transform="translate(79,40)" style="font-size: 20px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(108, 158, 79);">denounce</text><text text-anchor="middle" transform="translate(39,-69)" style="font-size: 20px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(107, 159, 79);">slave</text><text text-anchor="middle" transform="translate(17,65)" style="font-size: 19px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(104, 160, 79);">inalienable</text><text text-anchor="middle" transform="translate(-20,14)" style="font-size: 18px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(102, 162, 79);">fairest</text><text text-anchor="middle" transform="translate(-85,-5)" style="font-size: 17px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(99, 163, 79);">sovereignty</text><text text-anchor="middle" transform="translate(-10,84)" style="font-size: 17px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(98, 164, 79);">applause</text><text text-anchor="middle" transform="translate(-133,-40)" style="font-size: 17px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(97, 164, 79);">posterity</text><text text-anchor="middle" transform="translate(97,69)" style="font-size: 16px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(95, 166, 79);">oblige</text><text text-anchor="middle" transform="translate(160,55)" style="font-size: 16px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(94, 166, 79);">reaffirm</text><text text-anchor="middle" transform="translate(137,5)" style="font-size: 15px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(92, 167, 79);">taunt</text><text text-anchor="middle" transform="translate(-7,42)" style="font-size: 15px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(92, 167, 79);">shackle</text><text text-anchor="middle" transform="translate(198,-54)" style="font-size: 15px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(92, 167, 79);">despise</text><text text-anchor="middle" transform="translate(110,-56)" style="font-size: 15px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(91, 168, 79);">emancipation</text><text text-anchor="middle" transform="translate(-144,70)" style="font-size: 15px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(90, 168, 79);">misunderstand</text><text text-anchor="middle" transform="translate(-137,13)" style="font-size: 15px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(90, 168, 79);">repeal</text><text text-anchor="middle" transform="translate(166,27)" style="font-size: 15px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(89, 169, 79);">defy</text><text text-anchor="middle" transform="translate(-10,-62)" style="font-size: 15px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(89, 169, 79);">tyrants</text><text text-anchor="middle" transform="translate(131,-11)" style="font-size: 14px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(89, 169, 79);">consummation</text><text text-anchor="middle" transform="translate(197,-72)" style="font-size: 14px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(89, 169, 79);">dissolve</text><text text-anchor="middle" transform="translate(195,6)" style="font-size: 14px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(89, 169, 79);">plainly</text><text text-anchor="middle" transform="translate(144,-28)" style="font-size: 14px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(88, 170, 79);">extinction</text><text text-anchor="middle" transform="translate(74,89)" style="font-size: 14px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(88, 170, 79);">amalgamation</text><text text-anchor="middle" transform="translate(114,-84)" style="font-size: 14px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(87, 170, 80);">descendant</text><text text-anchor="middle" transform="translate(-130,-73)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(86, 171, 80);">acquaint</text><text text-anchor="middle" transform="translate(-144,46)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(85, 171, 80);">rightfully</text><text text-anchor="middle" transform="translate(-71,-69)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(85, 171, 80);">whither</text><text text-anchor="middle" transform="translate(217,29)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(85, 171, 80);">harmonize</text><text text-anchor="middle" transform="translate(86,-31)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(85, 171, 80);">wrongs</text><text text-anchor="middle" transform="translate(206,-24)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(84, 171, 80);">inasmuch</text><text text-anchor="middle" transform="translate(40,-91)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(84, 172, 80);">rescind</text><text text-anchor="middle" transform="translate(-175,-57)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(84, 172, 80);">aristocratic</text><text text-anchor="middle" transform="translate(69,-5)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(84, 172, 80);">lash</text><text text-anchor="middle" transform="translate(252,-51)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(83, 172, 80);">fugitive</text><text text-anchor="middle" transform="translate(-209,66)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(83, 172, 80);">mang</text><text text-anchor="middle" transform="translate(-129,-22)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(83, 172, 80);">resolute</text><text text-anchor="middle" transform="translate(-185,-77)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(83, 172, 80);">destitute</text><text text-anchor="middle" transform="translate(34,15)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">endure</text><text text-anchor="middle" transform="translate(-170,-5)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">declare</text><text text-anchor="middle" transform="translate(159,76)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">emphatically</text><text text-anchor="middle" transform="translate(114,-103)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">enumerate</text><text text-anchor="middle" transform="translate(-6,-82)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">repel</text><text text-anchor="middle" transform="translate(244,-69)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">infer</text><text text-anchor="middle" transform="translate(-2,-9)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">agitation</text><text text-anchor="middle" transform="translate(-142,87)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">luxuries</text><text text-anchor="middle" transform="translate(-45,-89)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(81, 173, 80);">favour</text><text text-anchor="middle" transform="translate(-216,50)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(81, 173, 80);">eloquence</text><text text-anchor="middle" transform="translate(-186,-40)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(81, 173, 80);">boldly</text><text text-anchor="middle" transform="translate(-142,-91)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(81, 173, 80);">astonishment</text><text text-anchor="middle" transform="translate(-199,8)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(81, 173, 80);">deprive</text><text text-anchor="middle" transform="translate(-238,-69)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(80, 174, 80);">labourer</text><text text-anchor="middle" transform="translate(-194,26)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(80, 174, 80);">gravely</text><text text-anchor="middle" transform="translate(-201,-23)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(79, 174, 80);">circumstance</text><text text-anchor="middle" transform="translate(-26,103)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(79, 174, 80);">unmistakable</text><text text-anchor="middle" transform="translate(-247,-42)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(79, 174, 80);">encroachment</text><text text-anchor="middle" transform="translate(-7,-105)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(79, 174, 80);">murderous</text><text text-anchor="middle" transform="translate(-246,-7)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(79, 174, 80);">proclaim</text><text text-anchor="middle" transform="translate(-272,-26)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(79, 174, 80);">cowardly</text><text text-anchor="middle" transform="translate(214,58)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(79, 174, 80);">profess</text><text text-anchor="middle" transform="translate(259,8)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(79, 174, 80);">dishonesty</text><text text-anchor="middle" transform="translate(160,93)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(79, 175, 80);">trample</text><text text-anchor="middle" transform="translate(257,47)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(78, 175, 80);">grossly</text><text text-anchor="middle" transform="translate(-72,-108)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(78, 175, 80);">anecdote</text><text text-anchor="middle" transform="translate(-250,8)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(78, 175, 80);">outrage</text><text text-anchor="middle" transform="translate(50,105)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(78, 175, 80);">temperance</text><text text-anchor="middle" transform="translate(120,112)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(78, 175, 80);">heretofore</text><text text-anchor="middle" transform="translate(-213,-97)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(78, 175, 80);">adversary</text><text text-anchor="middle" transform="translate(-79,88)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(78, 175, 80);">amuse</text><text text-anchor="middle" transform="translate(-304,-12)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(78, 175, 80);">govern</text><text text-anchor="middle" transform="translate(219,42)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(77, 175, 80);">assent</text><text text-anchor="middle" transform="translate(13,120)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(77, 175, 80);">fasten</text><text text-anchor="middle" transform="translate(262,73)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(77, 176, 80);">quarrel</text><text text-anchor="middle" transform="translate(-90,110)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">applaud</text><text text-anchor="middle" transform="translate(58,-114)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">oppose</text><text text-anchor="middle" transform="translate(176,-89)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">toil</text><text text-anchor="middle" transform="translate(-139,-112)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">contemplate</text><text text-anchor="middle" transform="translate(5,-120)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">sentiment</text></g></svg></div>
+      </div>
+      <div id="distinctive-words-list"><h3>Top Distinctive Words</h3><div class="word-list"><div class="item"><span class="word">slavery</span><span class="count">143× (4.6/1k)</span></div><div class="item"><span class="word">constitution</span><span class="count">61× (2.0/1k)</span></div><div class="item"><span class="word">states</span><span class="count">59× (1.9/1k)</span></div><div class="item"><span class="word">declaration</span><span class="count">38× (1.2/1k)</span></div><div class="item"><span class="word">douglas</span><span class="count">44× (1.4/1k)</span></div><div class="item"><span class="word">kansas</span><span class="count">47× (1.5/1k)</span></div><div class="item"><span class="word">nebraska</span><span class="count">39× (1.2/1k)</span></div><div class="item"><span class="word">decision</span><span class="count">37× (1.2/1k)</span></div><div class="item"><span class="word">illinois</span><span class="count">36× (1.2/1k)</span></div><div class="item"><span class="word">missouri</span><span class="count">36× (1.2/1k)</span></div><div class="item"><span class="word">territory</span><span class="count">32× (1.0/1k)</span></div><div class="item"><span class="word">compromise</span><span class="count">29× (0.9/1k)</span></div><div class="item"><span class="word">sovereignty</span><span class="count">27× (0.9/1k)</span></div><div class="item"><span class="word">believe</span><span class="count">33× (1.1/1k)</span></div><div class="item"><span class="word">applause</span><span class="count">29× (0.9/1k)</span></div><div class="item"><span class="word">slaves</span><span class="count">31× (1.0/1k)</span></div><div class="item"><span class="word">liberty</span><span class="count">27× (0.9/1k)</span></div><div class="item"><span class="word">subject</span><span class="count">27× (0.9/1k)</span></div><div class="item"><span class="word">principle</span><span class="count">23× (0.7/1k)</span></div><div class="item"><span class="word">popular</span><span class="count">26× (0.8/1k)</span></div></div></div>
+      <h3>Distinctive Phrases</h3>
+      <div class="wordcloud-container">
+        <h3>Bigrams &amp; Trigrams</h3>
+        <div class="subtitle">2- and 3-word phrases this author repeats most (stopwords removed)</div>
+        <div id="wordcloud-phrases"><svg width="802" height="300"><g transform="translate(401,150)"><text text-anchor="middle" transform="translate(8,74)" style="font-size: 40px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(212, 101, 74);">men created equal</text><text text-anchor="middle" transform="translate(-150,19)" style="font-size: 26px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(150, 135, 77);">slave state</text><text text-anchor="middle" transform="translate(-89,-25)" style="font-size: 24px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(138, 142, 77);">created equal</text><text text-anchor="middle" transform="translate(-53,48)" style="font-size: 21px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(125, 149, 78);">men created</text><text text-anchor="middle" transform="translate(4,-2)" style="font-size: 21px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(125, 149, 78);">popular sovereignty</text><text text-anchor="middle" transform="translate(53,27)" style="font-size: 21px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(125, 149, 78);">course ultimate extinction</text><text text-anchor="middle" transform="translate(-100,-50)" style="font-size: 18px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(113, 156, 78);">free state</text><text text-anchor="middle" transform="translate(152,-1)" style="font-size: 16px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(101, 162, 79);">exclude slavery</text><text text-anchor="middle" transform="translate(143,-23)" style="font-size: 16px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(101, 162, 79);">self government</text><text text-anchor="middle" transform="translate(-19,93)" style="font-size: 16px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(101, 162, 79);">whether slavery voted</text><text text-anchor="middle" transform="translate(2,-66)" style="font-size: 14px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(95, 166, 79);">ultimate extinction</text><text text-anchor="middle" transform="translate(124,-44)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(88, 169, 79);">squatter sovereignty</text><text text-anchor="middle" transform="translate(-151,42)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(88, 169, 79);">white people</text><text text-anchor="middle" transform="translate(131,-61)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(88, 169, 79);">fugitive slave law</text><text text-anchor="middle" transform="translate(-162,-8)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(88, 169, 79);">mind shall rest</text><text text-anchor="middle" transform="translate(153,-80)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(88, 169, 79);">public mind shall</text><text text-anchor="middle" transform="translate(-25,111)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(88, 169, 79);">right self government</text><text text-anchor="middle" transform="translate(209,42)" style="font-size: 13px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(88, 169, 79);">sacred right self</text><text text-anchor="middle" transform="translate(3,-50)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">british subjects</text><text text-anchor="middle" transform="translate(-245,31)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">course ultimate</text><text text-anchor="middle" transform="translate(25,-32)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">great applause</text><text text-anchor="middle" transform="translate(-186,-51)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">people territory</text><text text-anchor="middle" transform="translate(65,-88)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">public mind</text><text text-anchor="middle" transform="translate(107,44)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">sacred right</text><text text-anchor="middle" transform="translate(-193,-25)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">slave trade</text><text text-anchor="middle" transform="translate(209,21)" style="font-size: 12px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(82, 173, 80);">white men</text><text text-anchor="middle" transform="translate(-164,-67)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">can get</text><text text-anchor="middle" transform="translate(198,64)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">judge douglas</text><text text-anchor="middle" transform="translate(-244,-67)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">african slave trade</text><text text-anchor="middle" transform="translate(-201,58)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">british subjects born</text><text text-anchor="middle" transform="translate(255,7)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">free state men</text><text text-anchor="middle" transform="translate(239,-43)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">good enough govern</text><text text-anchor="middle" transform="translate(-167,99)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">matter popular sovereignty</text><text text-anchor="middle" transform="translate(-54,-84)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">peaceful extinction slavery</text><text text-anchor="middle" transform="translate(-96,-102)" style="font-size: 11px; font-family: &quot;DM Sans&quot;, sans-serif; font-weight: 600; fill: rgb(76, 176, 80);">plainly enough now</text></g></svg></div>
+      </div>
+      <div id="phrase-list"><strong>Top bigrams:</strong><div class="word-list" style="margin-bottom:16px;"><div class="item"><span class="word">slave state</span><span class="count">18×</span></div><div class="item"><span class="word">created equal</span><span class="count">16×</span></div><div class="item"><span class="word">men created</span><span class="count">14×</span></div><div class="item"><span class="word">popular sovereignty</span><span class="count">14×</span></div><div class="item"><span class="word">free state</span><span class="count">12×</span></div><div class="item"><span class="word">exclude slavery</span><span class="count">10×</span></div><div class="item"><span class="word">self government</span><span class="count">10×</span></div><div class="item"><span class="word">ultimate extinction</span><span class="count">9×</span></div><div class="item"><span class="word">squatter sovereignty</span><span class="count">8×</span></div><div class="item"><span class="word">white people</span><span class="count">8×</span></div></div><strong>Top trigrams:</strong><div class="word-list"><div class="item"><span class="word">men created equal</span><span class="count">14×</span></div><div class="item"><span class="word">course ultimate extinction</span><span class="count">7×</span></div><div class="item"><span class="word">whether slavery voted</span><span class="count">5×</span></div><div class="item"><span class="word">fugitive slave law</span><span class="count">4×</span></div><div class="item"><span class="word">mind shall rest</span><span class="count">4×</span></div><div class="item"><span class="word">public mind shall</span><span class="count">4×</span></div><div class="item"><span class="word">right self government</span><span class="count">4×</span></div><div class="item"><span class="word">sacred right self</span><span class="count">4×</span></div></div></div>
+    </div>
+
+    <div class="section" id="section-punctuation">
+      <h2>Punctuation Fingerprint</h2>
+      <div class="chart-container">
+        <canvas id="punct-chart" style="display: block; box-sizing: border-box; height: 350px; width: 802px;" width="2006" height="875"></canvas>
+      </div>
+      <div class="note" id="emdash-note">Em-dash style: Unspaced (172 em-dashes, 0 spaced, 172 unspaced)</div>
+    </div>
+
+    <div class="section" id="section-wordchoice">
+      <h2>Word Choice DNA</h2>
+      <h3>Contractions</h3>
+      <div id="contractions-detail"><p>Rate: <strong>0.8 per 1,000 words</strong> (25 total).</p><p><strong>Most common:</strong> <em>don't</em> (14), <em>won't</em> (3), <em>can't</em> (3), <em>i'm</em> (2), <em>i'll</em> (2), <em>you'll</em> (1)</p><p><strong>Can't vs. cannot:</strong> 3× vs. 33×</p></div>
+      <h3>Passive vs. Active Voice</h3>
+      <div id="passive-detail"><p>~<strong>33%</strong> of sentences use passive construction (~409 detected).</p><p>High passive rate.</p></div>
+      <h3>Direct Address</h3>
+      <div id="direct-address-detail"><p><strong>"You"/"your":</strong> 11.1 per 1k words (346 total).</p></div>
+      <h3>Hedging vs. Certainty</h3>
+      <div class="chart-container">
+        <canvas id="hedge-chart" style="display: block; box-sizing: border-box; height: 350px; width: 802px;" width="2006" height="875"></canvas>
+      </div>
+      <div id="hedge-detail"><p><strong>Hedging:</strong> 4/1k (125 total) · <strong>Certainty:</strong> 4.2/1k (130 total)</p></div>
+      <h3>Emphasis Words</h3>
+      <div id="emphasis-detail"><p><strong>Rate:</strong> 4.8 per 1k words (149 total).</p><p><em>very</em> (45), <em>even</em> (44), <em>just</em> (33), <em>really</em> (12), <em>truly</em> (6), <em>actually</em> (5), <em>literally</em> (2), <em>simply</em> (2)</p></div>
+      <h3>Transition Phrases</h3>
+      <div id="transitions-detail"><p><strong>Rate:</strong> 1.7 per 1k words (54 total).</p><p><strong>Inventory:</strong> <em>however</em> (15×), <em>indeed</em> (9×), <em>in fact</em> (5×), <em>for instance</em> (5×), <em>in short</em> (4×), <em>of course</em> (3×), <em>at the same time</em> (2×), <em>the point is</em> (2×), <em>to be sure</em> (2×), <em>that said</em> (1×), <em>nevertheless</em> (1×), <em>for example</em> (1×), <em>in particular</em> (1×), <em>on the other hand</em> (1×), <em>in addition</em> (1×), <em>as a result</em> (1×)</p><p><strong>Not found:</strong> <em>in other words</em>, <em>to be clear</em>, <em>put differently</em>, <em>moreover</em>, <em>furthermore</em>, <em>nonetheless</em>, <em>to put it another way</em></p></div>
+      <h3>"That" as Complementizer</h3>
+      <div id="that-detail"><p>Includes <em>that</em> <strong>40%</strong> of the time (48/121).</p><p>Mixed usage.</p></div>
+    </div>
+
+    <div class="section" id="section-sentences">
+      <h2>Sentence Construction</h2>
+      <div class="chart-container">
+        <canvas id="sentence-hist" style="display: block; box-sizing: border-box; height: 350px; width: 802px;" width="2006" height="875"></canvas>
+      </div>
+      <div class="chart-container">
+        <canvas id="para-hist" style="display: block; box-sizing: border-box; height: 350px; width: 802px;" width="2006" height="875"></canvas>
+      </div>
+      <div id="sentence-targets"><div class="rec-item"><strong>Sentence length:</strong> Aim for 15–35 words. Range: 5–50.</div>
+     <div class="rec-item"><strong>Paragraph length:</strong> Average 5.9 sentences (~140 words).</div></div>
+    </div>
+
+    <div class="section" id="section-advanced-vocab">
+      <h2>Advanced Vocabulary Profile</h2>
+      <div id="vocab-profile-detail"><p><strong>Type-Token Ratio:</strong> 0.136</p>
+     <p><strong>Hapax Legomena:</strong> 7.2% used only once</p>
+     <p><strong>Yule's K:</strong> 106 — moderate repetition</p>
+     <p><strong>Avg word length:</strong> 4.4 chars, 1.46 syllables</p></div>
+      <h3>Reading Level</h3>
+      <div id="reading-level-detail"><table class="summary-table">
+      <thead><tr><th>Index</th><th>Score</th><th>Grade</th></tr></thead>
+      <tbody>
+        <tr><td>Flesch-Kincaid</td><td>11.4</td><td>~Grade 11</td></tr>
+        <tr><td>Gunning Fog</td><td>15</td><td>~Grade 15</td></tr>
+        <tr><td>Coleman-Liau</td><td>8.8</td><td>~Grade 9</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:12px;"><strong>Target:</strong> Grade 10–12.</p></div>
+      <h3>Function Word Fingerprint</h3>
+      <div class="chart-container">
+        <canvas id="fw-chart" style="display: block; box-sizing: border-box; height: 350px; width: 802px;" width="2006" height="875"></canvas>
+      </div>
+      <div id="fw-notes"><p><strong>Overuses:</strong> <em>we</em> (+158%), <em>if</em> (+134%), <em>they</em> (+99%)</p></div>
+    </div>
+
+    <div class="section" id="section-corpus">
+      <h2>Corpus Details</h2>
+      <div id="corpus-detail"><p>1 document(s) · ~30,962 words · ~1248 sentences · ~223 paragraphs</p>
+     <p class="note">Report generated 3/20/2026</p></div>
+    </div>
+
+    <button class="bottom-btn" onclick="window.location.href='https://ghostright.org'">Try It With YOUR Writing →</button>
+
+  </div>
+</div>
+
+
+    <div style="text-align:center; margin: 40px 0;">
+      <h3 style="margin-bottom: 12px;">See More Examples</h3>
+      <p style="font-size: 0.95rem; color: var(--text-light);">
+        <a href="lincoln.html" style="color: var(--green); text-decoration: none; font-weight: 600;">Abraham Lincoln</a> · 
+        <a href="austen.html" style="color: var(--green); text-decoration: none; font-weight: 600;">Jane Austen</a> · 
+        <a href="london.html" style="color: var(--green); text-decoration: none; font-weight: 600;">Jack London</a>
+      </p>
+    </div>
+
+<footer>
+  <div class="container">
+    <p>© 2026 GhostRight LLC · <a href="https://ghostright.org">Contact Us</a></p>
+  </div>
+</footer>
+
+<script>
+const API_URL = 'https://api.ghostright.org';
+let selectedFiles = [];
+
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+const fileListEl = document.getElementById('file-list');
+const analyzeBtn = document.getElementById('analyze-btn');
+const pasteZone = document.getElementById('paste-zone');
+
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropZone.classList.remove('drag-over');
+  addFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change', () => addFiles(fileInput.files));
+pasteZone.addEventListener('input', () => updateButton());
+
+function addFiles(fileList) {
+  for (const f of fileList) {
+    if (f.name.match(/\.(docx|txt)$/i) && !selectedFiles.find(s => s.name === f.name)) {
+      selectedFiles.push(f);
+    }
+  }
+  renderFileList();
+}
+
+function removeFile(idx) {
+  selectedFiles.splice(idx, 1);
+  renderFileList();
+}
+
+function renderFileList() {
+  fileListEl.innerHTML = selectedFiles.map((f, i) =>
+    `<div class="file-item">
+      <span class="name">${f.name}</span>
+      <span class="size">${(f.size / 1024).toFixed(0)} KB</span>
+      <span class="remove" onclick="removeFile(${i})">×</span>
+    </div>`
+  ).join('');
+  updateButton();
+}
+
+function updateButton() {
+  const hasFiles = selectedFiles.length > 0;
+  const hasText = pasteZone.value.trim().length > 0;
+  analyzeBtn.style.display = (hasFiles || hasText) ? 'block' : 'none';
+}
+
+let progressTimer = null;
+
+function startProgress() {
+  let pct = 0;
+  const bar = document.getElementById('progress-bar');
+  const pctEl = document.getElementById('loading-pct');
+  const textEl = document.getElementById('loading-text');
+  const messages = [
+    'Reading your documents...',
+    'Counting words and sentences...',
+    'Analyzing sentence structure...',
+    'Detecting contractions and voice markers...',
+    'Running POS tagger (this is the slow part)...',
+    'Computing vocabulary richness...',
+    'Building word clouds...',
+    'Comparing punctuation to benchmarks...',
+    'Identifying distinctive phrases...',
+    'Crunching the final numbers...'
+  ];
+  let msgIdx = 0;
+
+  progressTimer = setInterval(() => {
+    if (pct < 70) pct += 2;
+    else if (pct < 85) pct += 0.5;
+    else if (pct < 92) pct += 0.2;
+    bar.style.width = pct + '%';
+    pctEl.textContent = Math.round(pct) + '%';
+
+    const newIdx = Math.min(Math.floor(pct / 10), messages.length - 1);
+    if (newIdx !== msgIdx) {
+      msgIdx = newIdx;
+      textEl.textContent = messages[msgIdx];
+    }
+  }, 300);
+}
+
+function stopProgress() {
+  clearInterval(progressTimer);
+  document.getElementById('progress-bar').style.width = '100%';
+  document.getElementById('loading-pct').textContent = '100%';
+  document.getElementById('loading-text').textContent = 'Done!';
+}
+
+async function runAnalysis() {
+  document.getElementById('upload-section').style.display = 'none';
+  document.getElementById('main-header').style.display = 'none';
+  document.getElementById('loading-section').style.display = 'block';
+  startProgress();
+
+  const formData = new FormData();
+  selectedFiles.forEach((f, i) => formData.append(`file${i + 1}`, f, f.name));
+
+  // Add pasted text as a .txt file
+  const pastedText = pasteZone.value.trim();
+  if (pastedText.length > 0) {
+    const blob = new Blob([pastedText], { type: 'text/plain' });
+    formData.append('pasted_text', blob, 'pasted_text.txt');
+  }
+
+  try {
+    const resp = await fetch(`${API_URL}/analyze`, { method: 'POST', body: formData });
+    const data = await resp.json();
+    if (data.error) throw new Error(Array.isArray(data.error) ? data.error[0] : data.error);
+
+    stopProgress();
+    setTimeout(() => {
+      document.getElementById('loading-section').style.display = 'none';
+      document.getElementById('report-section').style.display = 'block';
+      document.getElementById('main-header').style.display = 'none';
+      renderReport(data);
+    }, 500);
+  } catch (err) {
+    stopProgress();
+    document.getElementById('loading-section').style.display = 'none';
+    document.getElementById('error-section').style.display = 'block';
+    document.getElementById('main-header').style.display = 'none';
+    document.getElementById('error-message').textContent = err.message || 'Something went wrong.';
+  }
+}
+
+function resetToUpload() {
+  selectedFiles = [];
+  renderFileList();
+  pasteZone.value = '';
+  // Clear old charts
+  Chart.helpers.each(Chart.instances, c => c.destroy());
+  document.querySelectorAll('.wordcloud-container svg').forEach(s => s.remove());
+  document.getElementById('report-section').style.display = 'none';
+  document.getElementById('error-section').style.display = 'none';
+  document.getElementById('loading-section').style.display = 'none';
+  document.getElementById('upload-section').style.display = 'block';
+  document.getElementById('main-header').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+
+function val(v) { return Array.isArray(v) ? v[0] : v; }
+
+function renderReport(d) {
+  document.getElementById('report-author-name').textContent = 'Voice Analysis Results';
+  document.getElementById('corpus-info').textContent =
+    `${val(d.corpus.n_docs)} document(s) · ~${Number(val(d.corpus.word_count)).toLocaleString()} words · ~${val(d.corpus.n_sentences)} sentences`;
+
+  renderSummary(d);
+  renderRecommendations(d);
+  renderWordCloud(d);
+  renderPhraseCloud(d);
+  renderDistinctiveWords(d);
+  renderPhraseList(d);
+  renderPunctuation(d);
+  renderWordChoice(d);
+  renderHedgeChart(d);
+  renderSentenceCharts(d);
+  renderAdvancedVocab(d);
+  renderFunctionWords(d);
+  renderCorpusDetails(d);
+  window.scrollTo(0, 0);
+}
+
+function renderSummary(d) {
+  const s = d.summary;
+  const rows = [
+    ['Reading level', `Grade ${val(s.fk_grade)} (Flesch-Kincaid)`, 'USA Today ~8 · NYT ~12 · Academic journals ~16', 'The grade level a reader needs to understand this writing'],
+    ['Contractions', `${val(s.contraction_rate)} per 1k words`, 'Academic prose ~0 · Newspapers ~3 · Podcasts ~20+', "e.g. don't, can't — formality vs. conversational tone"],
+    ['Passive voice', `~${val(s.passive_rate)}% of sentences`, 'Ad copy ~5% · News ~12% · Scientific papers ~25%', 'Subject receives action rather than performs it'],
+    ['Direct address ("you")', `${val(s.you_rate)} per 1k words`, 'Academic ~0 · Op-eds ~3 · Self-help books ~15+', 'How often the author speaks directly to the reader'],
+    ['Avg. sentence length', `${val(s.avg_sentence_length)} words`, "Children's books ~10 · Fiction ~15 · Legal writing ~25", 'Average words per sentence'],
+    ['Sentence rhythm', `Range: ${val(s.sentence_range_low)}–${val(s.sentence_range_high)} wps`, 'Low variation (SD ~5) · Moderate (~9) · High (~14+)', 'How much sentence length varies'],
+    ['Vocabulary richness', `Yule's K = ${val(s.yules_k)}`, 'Essay ~60 · Average prose ~100 · Ads & speeches ~150+', 'How much an author repeats words'],
+  ];
+  document.getElementById('summary-table').innerHTML =
+    `<thead><tr><th></th><th>This Author</th><th>Benchmark</th></tr></thead><tbody>` +
+    rows.map(r => `<tr><td>${r[0]} <span class="hint" data-tip="${r[3]}">?</span></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('') +
+    `</tbody>`;
+}
+
+function renderRecommendations(d) {
+  const s = d.summary;
+  const recs = [];
+  const low = Math.round(val(s.avg_sentence_length) - val(s.sd_sentence_length) * 0.5);
+  const high = Math.round(val(s.avg_sentence_length) + val(s.sd_sentence_length) * 0.5);
+  const sd = val(s.sd_sentence_length);
+  recs.push(`<strong>Sentence length:</strong> Aim for ${low}–${high} words. ${sd > 12 ? 'Mix short and long freely.' : sd > 8 ? 'Moderate variation.' : 'Keep consistent rhythm.'}`);
+
+  const cr = val(s.contraction_rate);
+  recs.push(`<strong>Contractions:</strong> ${cr >= 15 ? 'Use freely' : cr >= 8 ? 'Use moderately' : cr >= 1 ? 'Use sparingly' : 'Avoid — write formally'} (${cr}/1k).`);
+
+  const pr = val(s.passive_rate);
+  recs.push(`<strong>Passive voice:</strong> ${pr >= 20 ? 'High — mirror passive constructions.' : pr >= 10 ? 'Moderate — mix active and passive.' : 'Active voice dominant — lead with subjects.'}`);
+
+  const yr = val(s.you_rate);
+  recs.push(`<strong>Direct address:</strong> ${yr > 5 ? 'Address the reader as "you" freely.' : yr > 1 ? 'Occasional "you" is fine.' : 'Rarely uses "you" — write in third person.'}`);
+
+  const hr = val(d.hedging_certainty.hedging_rate), crt = val(d.hedging_certainty.certainty_rate);
+  recs.push(`<strong>Hedging vs. certainty:</strong> ${hr > crt * 2 ? 'Hedges more — use <em>perhaps, seems, likely</em>.' : crt > hr * 2 ? 'Asserts confidently — use <em>clearly, must, essential</em>.' : 'Balanced — use both registers.'}`);
+
+  if (d.transitions.top && Object.keys(d.transitions.top).length > 0) {
+    const topT = Object.keys(d.transitions.top).slice(0, 5).map(t => `<em>${t}</em>`).join(', ');
+    recs.push(`<strong>Transitions:</strong> Favorites: ${topT}. Use these; avoid others.`);
+  }
+
+  document.getElementById('recommendations-list').innerHTML = recs.map(r => `<div class="rec-item">${r}</div>`).join('');
+}
+
+function buildWordCloud(containerId, words, maxFont) {
+  const container = document.getElementById(containerId);
+  const width = container.offsetWidth || 700;
+  const height = 300;
+  if (!words || words.length === 0) {
+    container.innerHTML = '<p style="color:#999;padding:40px;">Not enough data for word cloud.</p>';
+    return;
+  }
+  const maxVal = d3.max(words, w => w.size);
+  const scale = d3.scaleLinear().domain([d3.min(words, w => w.size), maxVal]).range([11, maxFont || 48]);
+  const colorScale = d3.scaleLinear().domain([d3.min(words, w => w.size), maxVal]).range(['#4CB050', '#D4654A']);
+
+  d3.layout.cloud()
+    .size([width, height])
+    .words(words.map(w => ({ text: w.text, size: scale(w.size), rawSize: w.size })))
+    .padding(3)
+    .rotate(() => 0)
+    .fontSize(d => d.size)
+    .on('end', drawn => {
+      const svg = d3.select(`#${containerId}`).append('svg')
+        .attr('width', width).attr('height', height)
+        .append('g').attr('transform', `translate(${width / 2},${height / 2})`);
+      svg.selectAll('text').data(drawn).enter().append('text')
+        .style('font-size', d => d.size + 'px')
+        .style('font-family', 'DM Sans, sans-serif')
+        .style('font-weight', '600')
+        .style('fill', d => colorScale(d.rawSize))
+        .attr('text-anchor', 'middle')
+        .attr('transform', d => `translate(${d.x},${d.y})`)
+        .text(d => d.text);
+    })
+    .start();
+}
+
+function renderWordCloud(d) {
+  if (!d.distinctive_words || !d.distinctive_words.cloud) return;
+  const words = d.distinctive_words.cloud.map(item => ({
+    text: val(item.word), size: val(item.ratio)
+  })).filter(w => w.text && w.size);
+  buildWordCloud('wordcloud-single', words, 52);
+}
+
+function renderPhraseCloud(d) {
+  if (!d.distinctive_phrases) return;
+  let words = [];
+  if (d.distinctive_phrases.bigrams) {
+    words = words.concat(d.distinctive_phrases.bigrams.map(b => ({ text: val(b.bigram), size: val(b.n) })));
+  }
+  if (d.distinctive_phrases.trigrams) {
+    words = words.concat(d.distinctive_phrases.trigrams.map(t => ({ text: val(t.trigram), size: val(t.n) * 2 })));
+  }
+  buildWordCloud('wordcloud-phrases', words, 40);
+}
+
+function renderDistinctiveWords(d) {
+  if (!d.distinctive_words || !d.distinctive_words.top_words) return;
+  const words = d.distinctive_words.top_words;
+  document.getElementById('distinctive-words-list').innerHTML =
+    `<h3>Top Distinctive Words</h3><div class="word-list">` +
+    words.slice(0, 20).map(w =>
+      `<div class="item"><span class="word">${val(w.word)}</span><span class="count">${val(w.ref_count)}× (${Number(val(w.ref_rate)).toFixed(1)}/1k)</span></div>`
+    ).join('') + `</div>`;
+}
+
+function renderPhraseList(d) {
+  if (!d.distinctive_phrases) return;
+  let html = '';
+  if (d.distinctive_phrases.bigrams && d.distinctive_phrases.bigrams.length > 0) {
+    html += '<strong>Top bigrams:</strong><div class="word-list" style="margin-bottom:16px;">';
+    html += d.distinctive_phrases.bigrams.slice(0, 10).map(b =>
+      `<div class="item"><span class="word">${val(b.bigram)}</span><span class="count">${val(b.n)}×</span></div>`
+    ).join('') + '</div>';
+  }
+  if (d.distinctive_phrases.trigrams && d.distinctive_phrases.trigrams.length > 0) {
+    html += '<strong>Top trigrams:</strong><div class="word-list">';
+    html += d.distinctive_phrases.trigrams.slice(0, 8).map(t =>
+      `<div class="item"><span class="word">${val(t.trigram)}</span><span class="count">${val(t.n)}×</span></div>`
+    ).join('') + '</div>';
+  }
+  document.getElementById('phrase-list').innerHTML = html;
+}
+
+function renderPunctuation(d) {
+  const p = d.punctuation;
+  const baselines = { Commas: 61.6, Semicolons: 3.2, Colons: 3.4, 'Em-dashes': 2.5, 'Exclamation pts': 3.3, 'Question marks': 5.6 };
+  const author = { Commas: val(p.comma_rate), Semicolons: val(p.semicolon_rate), Colons: val(p.colon_rate), 'Em-dashes': val(p.dash_rate), 'Exclamation pts': val(p.excl_rate), 'Question marks': val(p.quest_rate) };
+  const labels = Object.keys(baselines);
+  const diffs = labels.map(l => Math.round(100 * (author[l] - baselines[l]) / baselines[l]));
+  const colors = diffs.map(d => d >= 0 ? '#4CB050' : '#D4654A');
+
+  new Chart(document.getElementById('punct-chart'), {
+    type: 'bar',
+    data: { labels, datasets: [{ data: diffs, backgroundColor: colors, borderRadius: 4 }] },
+    options: {
+      indexAxis: 'y', responsive: true,
+      plugins: {
+        legend: { display: false },
+        title: { display: true, text: 'Punctuation: % Difference from English Average', font: { size: 15, family: 'Source Serif 4', weight: '600' }, color: '#455A64' },
+        tooltip: { callbacks: { label: ctx => `${ctx.raw > 0 ? '+' : ''}${ctx.raw}%` } }
+      },
+      scales: { x: { grid: { color: '#E0E0E0' } }, y: { grid: { display: false } } }
+    }
+  });
+  document.getElementById('emdash-note').textContent =
+    `Em-dash style: ${val(p.emdash_style)} (${val(p.emdash_count)} em-dashes, ${val(p.emdash_spaced)} spaced, ${val(p.emdash_unspaced)} unspaced)`;
+}
+
+function renderWordChoice(d) {
+  const c = d.contractions;
+  let cHtml = '';
+  if (val(c.total) === 0) {
+    cHtml = '<p>This author <strong>does not use contractions</strong>.</p>';
+  } else {
+    cHtml = `<p>Rate: <strong>${val(c.rate)} per 1,000 words</strong> (${val(c.total)} total).</p>`;
+    if (c.top && Object.keys(c.top).length > 0)
+      cHtml += '<p><strong>Most common:</strong> ' + Object.entries(c.top).map(([k, v]) => `<em>${k}</em> (${val(v)})`).join(', ') + '</p>';
+    if (val(c.cant) > 0 || val(c.cannot) > 0)
+      cHtml += `<p><strong>Can't vs. cannot:</strong> ${val(c.cant)}× vs. ${val(c.cannot)}×</p>`;
+  }
+  document.getElementById('contractions-detail').innerHTML = cHtml;
+
+  const pv = d.passive_voice;
+  let pvHtml = `<p>~<strong>${val(pv.rate)}%</strong> of sentences use passive construction (~${val(pv.count)} detected).</p>`;
+  pvHtml += val(pv.rate) >= 20 ? '<p>High passive rate.</p>' : val(pv.rate) >= 10 ? '<p>Moderate passive voice.</p>' : '<p>Strongly active voice.</p>';
+  document.getElementById('passive-detail').innerHTML = pvHtml;
+
+  const da = d.direct_address;
+  let daHtml = `<p><strong>"You"/"your":</strong> ${val(da.you_rate)} per 1k words (${val(da.you_count)} total).</p>`;
+  document.getElementById('direct-address-detail').innerHTML = daHtml;
+
+  const em = d.emphasis;
+  let emHtml = `<p><strong>Rate:</strong> ${val(em.rate)} per 1k words (${val(em.total)} total).</p>`;
+  if (em.top && Object.keys(em.top).length > 0)
+    emHtml += '<p>' + Object.entries(em.top).map(([k, v]) => `<em>${k}</em> (${val(v)})`).join(', ') + '</p>';
+  document.getElementById('emphasis-detail').innerHTML = emHtml;
+
+  const tr = d.transitions;
+  let trHtml = `<p><strong>Rate:</strong> ${val(tr.rate)} per 1k words (${val(tr.total)} total).</p>`;
+  if (tr.top && Object.keys(tr.top).length > 0)
+    trHtml += '<p><strong>Inventory:</strong> ' + Object.entries(tr.top).map(([k, v]) => `<em>${k}</em> (${val(v)}×)`).join(', ') + '</p>';
+  if (tr.missing && tr.missing.length > 0)
+    trHtml += '<p><strong>Not found:</strong> <em>' + tr.missing.slice(0, 10).map(m => val(m)).join('</em>, <em>') + '</em></p>';
+  document.getElementById('transitions-detail').innerHTML = trHtml;
+
+  const th = d.that_complementizer;
+  let thHtml = '';
+  if (val(th.total) < 3) { thHtml = '<p>Not enough instances to assess.</p>'; }
+  else {
+    thHtml = `<p>Includes <em>that</em> <strong>${val(th.inclusion_pct)}%</strong> of the time (${val(th.with_count)}/${val(th.total)}).</p>`;
+    thHtml += val(th.inclusion_pct) >= 70 ? '<p>Prefers explicit <em>that</em>.</p>' : val(th.inclusion_pct) <= 30 ? '<p>Drops <em>that</em>.</p>' : '<p>Mixed usage.</p>';
+  }
+  document.getElementById('that-detail').innerHTML = thHtml;
+
+  const hc = d.hedging_certainty;
+  document.getElementById('hedge-detail').innerHTML =
+    `<p><strong>Hedging:</strong> ${val(hc.hedging_rate)}/1k (${val(hc.hedging_total)} total) · <strong>Certainty:</strong> ${val(hc.certainty_rate)}/1k (${val(hc.certainty_total)} total)</p>`;
+}
+
+function renderHedgeChart(d) {
+  const hc = d.hedging_certainty;
+  const hedgeWords = hc.top_hedging ? Object.entries(hc.top_hedging) : [];
+  const certWords = hc.top_certainty ? Object.entries(hc.top_certainty) : [];
+  const labels = [...hedgeWords.map(w => w[0]), ...certWords.map(w => w[0])];
+  const values = [...hedgeWords.map(w => -val(w[1])), ...certWords.map(w => val(w[1]))];
+  const colors = [...hedgeWords.map(() => '#E8963A'), ...certWords.map(() => '#4CB050')];
+  if (labels.length === 0) return;
+
+  new Chart(document.getElementById('hedge-chart'), {
+    type: 'bar',
+    data: { labels, datasets: [{ data: values, backgroundColor: colors, borderRadius: 4 }] },
+    options: {
+      indexAxis: 'y', responsive: true,
+      plugins: {
+        legend: { display: false },
+        title: { display: true, text: 'Hedging vs. Certainty', font: { size: 15, family: 'Source Serif 4', weight: '600' }, color: '#455A64' },
+        tooltip: { callbacks: { label: ctx => `${Math.abs(ctx.raw)} occurrences` } }
+      },
+      scales: { x: { ticks: { callback: v => Math.abs(v) }, grid: { color: '#E0E0E0' } }, y: { grid: { display: false } } }
+    }
+  });
+}
+
+function renderSentenceCharts(d) {
+  const sc = d.sentence_construction;
+  const wps = sc.wps_histogram.map(v => val(v));
+  const spp = sc.sents_per_para_histogram.map(v => val(v));
+
+  const wpsBins = {};
+  wps.forEach(v => { const bin = Math.floor(v / 5) * 5; wpsBins[bin] = (wpsBins[bin] || 0) + 1; });
+  const wpsLabels = Object.keys(wpsBins).sort((a, b) => a - b);
+
+  new Chart(document.getElementById('sentence-hist'), {
+    type: 'bar',
+    data: { labels: wpsLabels.map(l => `${l}–${+l + 4}`), datasets: [{ data: wpsLabels.map(l => wpsBins[l]), backgroundColor: 'rgba(76,176,80,0.35)', borderColor: '#4CB050', borderWidth: 1 }] },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, title: { display: true, text: 'Sentence Length Distribution', font: { size: 15, family: 'Source Serif 4', weight: '600' }, color: '#455A64' } },
+      scales: { y: { title: { display: true, text: 'Frequency' } }, x: { title: { display: true, text: 'Words per sentence' } } }
+    }
+  });
+
+  const sppBins = {};
+  spp.forEach(v => { sppBins[v] = (sppBins[v] || 0) + 1; });
+  const sppLabels = Object.keys(sppBins).sort((a, b) => a - b);
+
+  new Chart(document.getElementById('para-hist'), {
+    type: 'bar',
+    data: { labels: sppLabels, datasets: [{ data: sppLabels.map(l => sppBins[l]), backgroundColor: 'rgba(76,176,80,0.35)', borderColor: '#4CB050', borderWidth: 1 }] },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false }, title: { display: true, text: 'Sentences per Paragraph', font: { size: 15, family: 'Source Serif 4', weight: '600' }, color: '#455A64' } },
+      scales: { y: { title: { display: true, text: 'Frequency' } }, x: { title: { display: true, text: 'Sentences' } } }
+    }
+  });
+
+  const s = d.summary;
+  document.getElementById('sentence-targets').innerHTML =
+    `<div class="rec-item"><strong>Sentence length:</strong> Aim for ${Math.round(val(s.avg_sentence_length) - val(s.sd_sentence_length) * 0.5)}–${Math.round(val(s.avg_sentence_length) + val(s.sd_sentence_length) * 0.5)} words. Range: ${val(s.sentence_range_low)}–${val(s.sentence_range_high)}.</div>
+     <div class="rec-item"><strong>Paragraph length:</strong> Average ${val(sc.avg_sents_per_para)} sentences (~${val(sc.avg_words_per_para)} words).</div>`;
+}
+
+function renderAdvancedVocab(d) {
+  const s = d.summary;
+  const yk = val(s.yules_k);
+  const ykDesc = yk > 150 ? 'high repetition' : yk > 100 ? 'moderate repetition' : 'low repetition (diverse)';
+  document.getElementById('vocab-profile-detail').innerHTML =
+    `<p><strong>Type-Token Ratio:</strong> ${val(s.ttr)}</p>
+     <p><strong>Hapax Legomena:</strong> ${val(s.hapax_ratio)}% used only once</p>
+     <p><strong>Yule's K:</strong> ${yk} — ${ykDesc}</p>
+     <p><strong>Avg word length:</strong> ${val(s.avg_word_length)} chars, ${val(s.avg_syllables)} syllables</p>`;
+
+  document.getElementById('reading-level-detail').innerHTML =
+    `<table class="summary-table">
+      <thead><tr><th>Index</th><th>Score</th><th>Grade</th></tr></thead>
+      <tbody>
+        <tr><td>Flesch-Kincaid</td><td>${val(s.fk_grade)}</td><td>~Grade ${Math.round(val(s.fk_grade))}</td></tr>
+        <tr><td>Gunning Fog</td><td>${val(s.fog)}</td><td>~Grade ${Math.round(val(s.fog))}</td></tr>
+        <tr><td>Coleman-Liau</td><td>${val(s.coleman_liau)}</td><td>~Grade ${Math.round(val(s.coleman_liau))}</td></tr>
+      </tbody>
+    </table>
+    <p style="margin-top:12px;"><strong>Target:</strong> Grade ${Math.max(Math.round(val(s.fk_grade)) - 1, 1)}–${Math.round(val(s.fk_grade)) + 1}.</p>`;
+}
+
+function renderFunctionWords(d) {
+  if (!d.function_words || !d.function_words.divergence) return;
+  const fw = d.function_words.divergence;
+  const labels = fw.map(f => val(f.word));
+  const values = fw.map(f => val(f.pct_divergence));
+  const colors = values.map(v => v >= 0 ? '#4CB050' : '#D4654A');
+
+  new Chart(document.getElementById('fw-chart'), {
+    type: 'bar',
+    data: { labels, datasets: [{ data: values, backgroundColor: colors, borderRadius: 4 }] },
+    options: {
+      indexAxis: 'y', responsive: true,
+      plugins: {
+        legend: { display: false },
+        title: { display: true, text: 'Function Word Fingerprint: % Divergence', font: { size: 15, family: 'Source Serif 4', weight: '600' }, color: '#455A64' },
+        tooltip: { callbacks: { label: ctx => `${ctx.raw > 0 ? '+' : ''}${ctx.raw}%` } }
+      },
+      scales: { x: { grid: { color: '#E0E0E0' } }, y: { grid: { display: false } } }
+    }
+  });
+
+  const over = fw.filter(f => val(f.divergence) > 0).slice(0, 3);
+  const under = fw.filter(f => val(f.divergence) < 0).slice(0, 3);
+  let notes = '';
+  if (over.length) notes += '<p><strong>Overuses:</strong> ' + over.map(f => `<em>${val(f.word)}</em> (+${val(f.pct_divergence)}%)`).join(', ') + '</p>';
+  if (under.length) notes += '<p><strong>Underuses:</strong> ' + under.map(f => `<em>${val(f.word)}</em> (${val(f.pct_divergence)}%)`).join(', ') + '</p>';
+  document.getElementById('fw-notes').innerHTML = notes;
+}
+
+function renderCorpusDetails(d) {
+  document.getElementById('corpus-detail').innerHTML =
+    `<p>${val(d.corpus.n_docs)} document(s) · ~${Number(val(d.corpus.word_count)).toLocaleString()} words · ~${val(d.corpus.n_sentences)} sentences · ~${val(d.corpus.n_paragraphs)} paragraphs</p>
+     <p class="note">Report generated ${new Date().toLocaleDateString()}</p>`;
+}
+
+document.getElementById('contact-link').addEventListener('click', function(e) {
+  e.preventDefault();
+  window.location.href = 'mai' + 'lto:' + 'Andrew' + '@' + 'GhostRight.org';
+});
+</script>
+
+
+
+</body><div></div></html>
