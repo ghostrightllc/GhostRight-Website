@@ -753,8 +753,8 @@ async function runAnalysis() {
   let pastedText = pasteZone.value.trim();
   if (pastedText.length > 0) {
     const words = pastedText.split(/\s+/);
-    if (words.length > 50000) {
-      pastedText = words.slice(0, 50000).join(' ');
+    if (words.length > 25000) {
+      pastedText = words.slice(0, 25000).join(' ');
     }
     const blob = new Blob([pastedText], { type: 'text/plain' });
     formData.append('pasted_text', blob, 'pasted_text.txt');
