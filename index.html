@@ -11,7 +11,7 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GhostRight — Free Advanced Writer's Profile</title>
+<title>GhostRight — Advanced Tools for Ghostwriters</title>
 <link rel="icon" href="checkmarkfavicon.png" type="image/png">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
@@ -468,6 +468,36 @@ footer a { color: var(--green); text-decoration: none; }
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
+
+  .premium-box {
+  max-width: 680px;
+  margin: 48px auto 32px;
+  padding: 28px 32px;
+  background: var(--white);
+  border: 1px solid var(--green);
+  border-radius: 12px;
+  text-align: left;
+}
+.premium-box h3 {
+  color: var(--coral);
+  font-family: 'Source Serif 4', serif;
+  font-size: 1.3rem;
+  margin-bottom: 12px;
+}
+.premium-box p {
+  color: var(--slate);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+.premium-box a {
+  color: var(--green-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+.premium-box a:hover {
+  text-decoration: underline;
+}
   
 </style>
 </head>
@@ -527,6 +557,8 @@ footer a { color: var(--green); text-decoration: none; }
   </div>
 </div>
 
+
+  
 <!-- LOADING -->
 <div id="loading-section">
   <div class="container">
@@ -659,6 +691,12 @@ footer a { color: var(--green); text-decoration: none; }
   </div>
 </div>
 
+<div class="premium-box">
+  <h3>Need deeper analysis for a specific client?</h3>
+  <p>GhostRight also offers premium voice-matching services for professional ghostwriters: side-by-side stylistic comparisons between your writing and your client's, plus statistical scoring of how closely your drafts match their voice.</p>
+  <p>Email <a id="premium-contact" href="#">Andrew@GhostRight.org</a> for rates and details.</p>
+</div>
+  
 <footer>
   <div class="container">
     <p style="margin-bottom: 8px;">See examples: <a href="lincoln.html">Abraham Lincoln</a> · <a href="austen.html">Jane Austen</a> · <a href="london.html">Jack London</a></p>
@@ -1167,6 +1205,11 @@ document.getElementById('contact-link').addEventListener('click', function(e) {
   e.preventDefault();
   window.location.href = 'mai' + 'lto:' + 'Andrew' + '@' + 'GhostRight.org';
 });
+document.getElementById('premium-contact').addEventListener('click', function(e) {
+  e.preventDefault();
+  window.location.href = 'mai' + 'lto:' + 'Andrew' + '@' + 'GhostRight.org';
+});
+  
 </script>
 
 </body>
