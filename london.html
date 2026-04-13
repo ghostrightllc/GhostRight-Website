@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-G80H8FHTRB"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-G80H8FHTRB');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GhostRight — Jack London Writing Profile</title>
+<link rel="icon" href="checkmarkfavicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-cloud@1.2.7/build/d3.layout.cloud.min.js"></script>
+<style>
+:root {
+  --green: #4CB050;
+  --green-dark: #3D8B40;
+  --green-light: #E8F5E9;
+  --coral: #D4654A;
+  --amber: #E8963A;
+  --slate: #455A64;
+  --slate-light: #78909C;
+  --bg: #FAFAF8;
+  --white: #FFFFFF;
+  --text: #2C3E50;
+  --text-light: #607D8B;
+  --border: #E0E0E0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+h1, h2, h3 { font-family: 'Source Serif 4', serif; color: var(--green-dark); }
+.container { max-width: 900px; margin: 0 auto; padding: 0 24px; }
+header { padding: 20px 0 12px; text-align: center; border-bottom: 2px solid var(--green-light); }
+header img { max-width: 160px; margin-bottom: 4px; }
+header h1 { font-size: 1.5rem; color: var(--green-dark); margin-bottom: 0; }
+#upload-section { padding: 28px 0; }
+#upload-section .container { max-width: 960px; }
+.upload-row { display: flex; gap: 32px; align-items: flex-start; }
+.upload-left { flex: 2; text-align: left; }
+.upload-right { flex: 1; min-width: 260px; }
+.step-label { font-family: 'Source Serif 4', serif; font-size: 1.3rem; font-weight: 700; color: var(--green); margin-bottom: 0; margin-top: 12px; }
+.step-label:first-child { margin-top: 0; }
+.step-text { font-size: 1.05rem; color: var(--text); margin-bottom: 4px; }
+.step-thats-it { font-family: 'Source Serif 4', serif; font-size: 1.3rem; font-weight: 700; color: var(--green-dark); margin-top: 12px; margin-bottom: 0; }
+.features-intro { font-size: 1rem; color: var(--text); margin-top: 20px; margin-bottom: 8px; }
+.features-list { text-align: left; margin-bottom: 0; font-size: 0.9rem; color: var(--slate); line-height: 1.7; padding-left: 20px; }
+.features-list li { padding-left: 4px; }
+.drop-zone { border: 3px dashed var(--border); border-radius: 16px; padding: 32px 20px; background: var(--white); cursor: pointer; transition: all 0.3s ease; text-align: center; }
+.drop-zone:hover, .drop-zone.drag-over { border-color: var(--green); background: var(--green-light); }
+.drop-zone-icon { font-size: 2.2rem; margin-bottom: 8px; }
+.drop-zone-text { font-size: 0.95rem; color: var(--slate); font-weight: 500; }
+.drop-zone-hint { font-size: 0.8rem; color: var(--text-light); margin-top: 6px; }
+.paste-divider { text-align: center; color: var(--text-light); font-size: 0.85rem; margin: 12px 0; font-weight: 500; }
+.paste-zone { width: 100%; min-height: 80px; border: 2px solid var(--border); border-radius: 12px; padding: 12px; font-family: 'DM Sans', sans-serif; font-size: 0.85rem; color: var(--text); resize: vertical; background: var(--white); transition: border-color 0.3s; }
+.paste-zone:focus { outline: none; border-color: var(--green); }
+.paste-zone::placeholder { color: var(--text-light); }
+#file-input { display: none; }
+.file-list { margin-top: 12px; text-align: left; max-height: 150px; overflow-y: auto; }
+.file-item { display: flex; justify-content: space-between; align-items: center; padding: 6px 12px; background: var(--white); border: 1px solid var(--border); border-radius: 8px; margin-bottom: 4px; font-size: 0.8rem; }
+.file-item .name { color: var(--slate); font-weight: 500; }
+.file-item .size { color: var(--text-light); font-size: 0.75rem; }
+.file-item .remove { color: var(--coral); cursor: pointer; font-weight: 700; font-size: 1rem; line-height: 1; }
+#analyze-btn { margin-top: 16px; padding: 12px 36px; font-size: 1.05rem; font-weight: 600; font-family: 'DM Sans', sans-serif; background: var(--green); color: white; border: none; border-radius: 10px; cursor: pointer; transition: all 0.2s ease; display: none; width: 100%; }
+#analyze-btn:hover { background: var(--green-dark); transform: translateY(-1px); }
+@media (max-width: 700px) { .upload-row { flex-direction: column; } .upload-right { min-width: auto; } }
+#analyze-btn:disabled { background: var(--slate-light); cursor: not-allowed; transform: none; }
+#loading-section { display: none; padding: 40px 0 60px; text-align: center; overflow: hidden; }
+.ghost-parade { position: relative; height: 160px; margin-bottom: 24px; overflow: hidden; }
+.ghost-parade img { position: absolute; height: 65px; opacity: 0.85; }
+.ghost-r { animation: floatRight var(--speed) linear infinite, bobble 1.8s ease-in-out infinite; }
+.ghost-l { transform: scaleX(-1); animation: floatLeft var(--speed) linear infinite, bobbleFlip 1.8s ease-in-out infinite; }
+@keyframes floatRight { 0% { left: -100px; } 100% { left: calc(100% + 100px); } }
+@keyframes floatLeft { 0% { left: calc(100% + 100px); } 100% { left: -100px; } }
+@keyframes bobble { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+@keyframes bobbleFlip { 0%, 100% { transform: scaleX(-1) translateY(0); } 50% { transform: scaleX(-1) translateY(-8px); } }
+.progress-wrap { max-width: 400px; margin: 0 auto 20px; background: var(--border); border-radius: 10px; height: 14px; overflow: hidden; }
+.progress-bar { height: 100%; width: 0%; background: linear-gradient(90deg, var(--green), var(--green-dark)); border-radius: 10px; transition: width 0.5s ease; }
+#loading-text { font-size: 1.1rem; color: var(--slate); font-weight: 500; }
+#loading-pct { font-size: 0.85rem; color: var(--text-light); margin-top: 6px; }
+#report-section { display: none; padding: 40px 0 80px; }
+.report-header { text-align: left; margin-bottom: 40px; padding-bottom: 24px; border-bottom: 2px solid var(--green-light); }
+.report-header h2 { font-size: 1.3rem; color: var(--green); margin-bottom: 0; }
+.report-header h1 { font-size: 2rem; color: var(--slate); margin-bottom: 8px; }
+.report-header .corpus-info { color: var(--text-light); font-size: 0.9rem; }
+.section { margin-bottom: 48px; }
+.section h2 { font-size: 1.5rem; margin-bottom: 20px; padding-bottom: 8px; border-bottom: 2px solid var(--green-light); }
+.section h3 { font-size: 1.15rem; margin-bottom: 12px; margin-top: 28px; }
+.summary-table { width: 100%; border-collapse: collapse; }
+.summary-table th { text-align: left; padding: 10px 16px; font-weight: 600; font-size: 0.85rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 0.5px; border-bottom: 2px solid var(--border); }
+.summary-table td { padding: 14px 16px; border-bottom: 1px solid var(--border); font-size: 0.95rem; }
+.summary-table tr:nth-child(even) { background: var(--green-light); }
+.summary-table td:first-child { font-weight: 600; color: var(--slate); }
+.hint { display: inline-block; width: 16px; height: 16px; border-radius: 50%; background: var(--green); color: white; font-size: 11px; text-align: center; line-height: 16px; cursor: help; margin-left: 4px; vertical-align: middle; position: relative; }
+.hint:hover::after { content: attr(data-tip); position: absolute; left: 24px; top: -4px; background: var(--slate); color: white; padding: 8px 12px; border-radius: 8px; font-size: 13px; font-weight: 400; width: 260px; z-index: 100; line-height: 1.4; }
+.chart-container { background: var(--white); border-radius: 12px; padding: 24px; border: 1px solid var(--border); margin-bottom: 20px; }
+.chart-container canvas { max-height: 350px; }
+.wordcloud-container { background: var(--white); border-radius: 12px; padding: 24px; border: 1px solid var(--border); margin-bottom: 20px; text-align: center; min-height: 300px; }
+.wordcloud-container h3 { text-align: center; margin-bottom: 4px; }
+.wordcloud-container .subtitle { color: var(--text-light); font-size: 0.85rem; margin-bottom: 16px; }
+.word-list { columns: 2; column-gap: 24px; }
+.word-list .item { display: flex; justify-content: space-between; padding: 4px 0; break-inside: avoid; font-size: 0.9rem; }
+.word-list .item .word { font-weight: 600; color: var(--slate); }
+.word-list .item .count { color: var(--text-light); }
+.rec-item { padding: 12px 16px; background: var(--white); border-left: 4px solid var(--green); border-radius: 0 8px 8px 0; margin-bottom: 10px; font-size: 0.95rem; line-height: 1.5; }
+.rec-item strong { color: var(--green-dark); }
+.note { font-size: 0.9rem; color: var(--text-light); margin-top: 12px; font-style: italic; }
+#error-section { display: none; padding: 60px 0; text-align: center; }
+.error-box { background: #FFF3F0; border: 2px solid var(--coral); border-radius: 12px; padding: 32px; max-width: 500px; margin: 0 auto; }
+.error-box h3 { color: var(--coral); margin-bottom: 8px; }
+.error-box p { color: var(--slate); }
+#try-again-btn { margin-top: 16px; padding: 10px 32px; background: var(--coral); color: white; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; font-family: 'DM Sans', sans-serif; cursor: pointer; }
+.bottom-btn { display: block; margin: 40px auto 0; padding: 14px 48px; font-size: 1.1rem; font-weight: 600; font-family: 'DM Sans', sans-serif; background: var(--green); color: white; border: none; border-radius: 10px; cursor: pointer; }
+.bottom-btn:hover { background: var(--green-dark); }
+footer { text-align: center; padding: 32px 0; font-size: 0.85rem; color: var(--text-light); border-top: 1px solid var(--border); }
+footer a { color: var(--green); text-decoration: none; }
+
+/* ---- Sticky CTA Banner ---- */
+#sample-banner {
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background: #4CB050;
+  color: #fff;
+  padding: 10px 20px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.18);
+}
+#sample-banner a.banner-cta {
+  background: #fff;
+  color: #3D8B40;
+  font-weight: 700;
+  padding: 5px 16px;
+  border-radius: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: 13px;
+}
+#sample-banner a.banner-cta:hover { opacity: .85; }
+
+</style>
+</head>
+<body>
+<div id="sample-banner">
+  <span>Sample profile &nbsp;·&nbsp; See also: <a href="lincoln.html" style="color:#fff;opacity:.85;text-decoration:underline;">Abraham Lincoln</a> · <a href="austen.html" style="color:#fff;opacity:.85;text-decoration:underline;">Jane Austen</a></span>
+  <a class="banner-cta" href="https://ghostright.org/">Analyze Your Own Writing →</a>
+</div>
+<header id="main-header">
+  <div class="container">
+    <img src="logo.png" alt="GhostRight Logo">
+    <h1>What's Your GhostRight Writing Profile?</h1>
+  </div>
+</header>
+<div id="upload-section">
+  <div class="container">
+    <div class="upload-row">
+      <div class="upload-left">
+        <div class="steps-intro">
+          <p class="step-label">Step One:</p>
+          <p class="step-text">Upload writing samples or paste text</p>
+          <p class="step-label">Step Two:</p>
+          <p class="step-text">Click the green button</p>
+          <p class="step-thats-it"><em>That's it!</em></p>
+        </div>
+        <p class="features-intro">Quickly receive your GhostRight writing profile <em>(custom-built analysis, not A.I.)</em> including:</p>
+        <ul class="features-list">
+          <li>Reading level</li>
+          <li>Your personal "Word Choice DNA"</li>
+          <li>Punctuation usage compared to other writers</li>
+          <li>Your most distinctive words and phrases</li>
+          <li>Sentence construction data</li>
+          <li>Ghostwriter recommendations to match your voice</li>
+          <li><em>and more!</em></li>
+        </ul>
+        <p class="step-label" style="font-size: 1.1rem; margin-top: 16px;">See it in action: <a href="lincoln.html" style="color: var(--green); font-weight: 600;">Abraham Lincoln</a> · <a href="austen.html" style="color: var(--green); font-weight: 600;">Jane Austen</a> · <a href="london.html" style="color: var(--green); font-weight: 600;">Jack London</a></p>
+        <p style="font-size: 1rem; margin-top: 8px;"><a href="faq.html" style="color: var(--green); font-weight: 600; font-family: 'Source Serif 4', serif;">Frequently Asked Questions</a></p>
+      </div>
+      <div class="upload-right">
+        <div class="drop-zone" id="drop-zone">
+          <div class="drop-zone-icon">📄</div>
+          <div class="drop-zone-text">Drop files here or click to browse</div>
+          <div class="drop-zone-hint">.docx and .txt · 5,000+ words recommended</div>
+        </div>
+        <input type="file" id="file-input" multiple accept=".docx,.txt">
+        <div class="paste-divider">— or paste text directly —</div>
+        <textarea class="paste-zone" id="paste-zone" placeholder="Paste writing samples here..."></textarea>
+        <div class="file-list" id="file-list"></div>
+        <button id="analyze-btn" onclick="runAnalysis()">Generate Voice Profile</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="loading-section">
+  <div class="container">
+    <div class="ghost-parade">
+      <img src="ghost-pencil.png" class="ghost-r" style="--speed:7s; top:5px; animation-delay:-1s,-0.2s;">
+      <img src="ghost-eraser.png" class="ghost-r" style="--speed:9s; top:55px; animation-delay:-4s,-0.8s;">
+      <img src="ghost-highlighter.png" class="ghost-r" style="--speed:6s; top:85px; animation-delay:-2s,-0.5s;">
+      <img src="ghost-calculator.png" class="ghost-r" style="--speed:10s; top:30px; animation-delay:-7s,-1.1s;">
+      <img src="ghost-quillandink.png" class="ghost-l" style="--speed:8s; top:70px; animation-delay:-3s,-0.4s;">
+      <img src="ghost-typewriter.png" class="ghost-l" style="--speed:11s; top:10px; animation-delay:-6s,-0.9s;">
+      <img src="ghost-bluescissors.png" class="ghost-l" style="--speed:7.5s; top:45px; animation-delay:-1.5s,-0.6s;">
+      <img src="ghost-redmarker2.png" class="ghost-l" style="--speed:9.5s; top:90px; animation-delay:-5s,-1.3s;">
+    </div>
+    <div class="progress-wrap"><div class="progress-bar" id="progress-bar"></div></div>
+    <div id="loading-text">Reading your documents...</div>
+    <div id="loading-pct"></div>
+  </div>
+</div>
+<div id="error-section">
+  <div class="container">
+    <div class="error-box">
+      <h3>Analysis Failed</h3>
+      <p id="error-message">Something went wrong.</p>
+      <button id="try-again-btn" onclick="resetToUpload()">Try Again</button>
+    </div>
+  </div>
+</div>
+<div id="report-section">
+  <div class="container">
+    <div class="report-header">
+      <img src="logo.png" alt="GhostRight" style="max-width:180px;margin-bottom:8px;display:block;margin-left:auto;margin-right:auto;">
+      <h2>Author Voice Profile</h2>
+      <h1 id="report-author-name"></h1>
+      <div class="corpus-info" id="corpus-info"></div>
+    </div>
+    <div class="section" id="section-summary"><h2>Executive Summary</h2><table class="summary-table" id="summary-table"></table></div>
+    <div class="section" id="section-recommendations"><h2>Ghostwriter Recommendations to Match This Author</h2><div id="recommendations-list"></div></div>
+    <div class="section" id="section-vocab">
+      <h2>Distinctive Vocabulary</h2>
+      <div class="wordcloud-container"><h3>Words This Author Overuses vs. General English</h3><div class="subtitle">Proper nouns removed · sized by overuse ratio</div><div id="wordcloud-single"></div></div>
+      <div id="distinctive-words-list"></div>
+      <h3>Distinctive Phrases</h3>
+      <div class="wordcloud-container"><h3>Bigrams &amp; Trigrams</h3><div class="subtitle">2- and 3-word phrases this author repeats most (stopwords removed)</div><div id="wordcloud-phrases"></div></div>
+      <div id="phrase-list"></div>
+    </div>
+    <div class="section" id="section-punctuation"><h2>Punctuation Fingerprint</h2><div class="chart-container"><canvas id="punct-chart"></canvas></div><div class="note" id="emdash-note"></div></div>
+    <div class="section" id="section-wordchoice">
+      <h2>Word Choice DNA</h2>
+      <h3>Contractions</h3><div id="contractions-detail"></div>
+      <h3>Passive vs. Active Voice</h3><div id="passive-detail"></div>
+      <h3>Direct Address</h3><div id="direct-address-detail"></div>
+      <h3>Hedging vs. Certainty</h3><div class="chart-container"><canvas id="hedge-chart"></canvas></div><div id="hedge-detail"></div>
+      <h3>Emphasis Words</h3><div id="emphasis-detail"></div>
+      <h3>Transition Phrases</h3><div id="transitions-detail"></div>
+      <h3>"That" as Complementizer</h3><div id="that-detail"></div>
+    </div>
+    <div class="section" id="section-sentences"><h2>Sentence Construction</h2><div class="chart-container"><canvas id="sentence-hist"></canvas></div><div id="sentence-targets"></div><div class="chart-container" id="para-hist-container" style="display:none"><canvas id="para-hist"></canvas></div></div>
+    <div class="section" id="section-advanced-vocab"><h2>Advanced Vocabulary Profile</h2><div id="vocab-profile-detail"></div><h3>Reading Level</h3><div id="reading-level-detail"></div><h3>Function Word Fingerprint</h3><div class="chart-container"><canvas id="fw-chart"></canvas></div><div id="fw-notes"></div></div>
+    <div class="section" id="section-corpus"><h2>Corpus Details</h2><div id="corpus-detail"></div></div>
+    <a href="https://ghostright.org/" class="bottom-btn" style="text-align:center;display:block;text-decoration:none;width:fit-content;">Analyze Your Own Writing →</a>
+  </div>
+</div>
+<footer>
+  <div class="container">
+    <p style="margin-bottom: 8px;">See examples: <a href="lincoln.html">Abraham Lincoln</a> · <a href="austen.html">Jane Austen</a> · <a href="london.html">Jack London</a></p>
+    <p>© 2026 GhostRight LLC · <a id="contact-link" href="#">Contact Us</a> · <a href="faq.html">FAQ</a></p>
+  </div>
+</footer>
+<script>
+const API_URL = 'https://api.ghostright.org';
+let selectedFiles = [];
+const dropZone = document.getElementById('drop-zone');
+const fileInput = document.getElementById('file-input');
+const fileListEl = document.getElementById('file-list');
+const analyzeBtn = document.getElementById('analyze-btn');
+const pasteZone = document.getElementById('paste-zone');
+dropZone.addEventListener('click', () => fileInput.click());
+dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
+dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
+dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); addFiles(e.dataTransfer.files); });
+fileInput.addEventListener('change', () => addFiles(fileInput.files));
+pasteZone.addEventListener('input', () => updateButton());
+function addFiles(fileList) { for (const f of fileList) { if (f.name.match(/\.(docx|txt)$/i) && !selectedFiles.find(s => s.name === f.name)) { selectedFiles.push(f); } } renderFileList(); }
+function removeFile(idx) { selectedFiles.splice(idx, 1); renderFileList(); }
+function renderFileList() { fileListEl.innerHTML = selectedFiles.map((f, i) => `<div class="file-item"><span class="name">${f.name}</span><span class="size">${(f.size / 1024).toFixed(0)} KB</span><span class="remove" onclick="removeFile(${i})">×</span></div>`).join(''); updateButton(); }
+function updateButton() { const hasFiles = selectedFiles.length > 0; const hasText = pasteZone.value.trim().length > 0; analyzeBtn.style.display = (hasFiles || hasText) ? 'block' : 'none'; }
+let progressTimer = null;
+function startProgress() {
+  let pct = 0;
+  const bar = document.getElementById('progress-bar');
+  const pctEl = document.getElementById('loading-pct');
+  const textEl = document.getElementById('loading-text');
+  const messages = ['Reading your documents...','Counting words and sentences...','Analyzing sentence structure...','Detecting contractions and voice markers...','Running POS tagger (this is the slow part)...','Computing vocabulary richness...','Building word clouds...','Comparing punctuation to benchmarks...','Identifying distinctive phrases...','Crunching the final numbers...'];
+  let msgIdx = 0;
+  progressTimer = setInterval(() => {
+    if (pct < 70) pct += 2; else if (pct < 85) pct += 0.5; else if (pct < 92) pct += 0.2;
+    bar.style.width = pct + '%'; pctEl.textContent = Math.round(pct) + '%';
+    const newIdx = Math.min(Math.floor(pct / 10), messages.length - 1);
+    if (newIdx !== msgIdx) { msgIdx = newIdx; textEl.textContent = messages[msgIdx]; }
+  }, 300);
+}
+function stopProgress() { clearInterval(progressTimer); document.getElementById('progress-bar').style.width = '100%'; document.getElementById('loading-pct').textContent = '100%'; document.getElementById('loading-text').textContent = 'Done!'; }
+async function runAnalysis() {
+  document.getElementById('upload-section').style.display = 'none';
+  document.getElementById('main-header').style.display = 'none';
+  document.getElementById('loading-section').style.display = 'block';
+  startProgress();
+  const formData = new FormData();
+  selectedFiles.forEach((f, i) => formData.append(`file${i + 1}`, f, f.name));
+  let pastedText = pasteZone.value.trim();
+  if (pastedText.length > 0) { const words = pastedText.split(/\s+/); if (words.length > 10000) { pastedText = words.slice(0, 10000).join(' '); } const blob = new Blob([pastedText], { type: 'text/plain' }); formData.append('pasted_text', blob, 'pasted_text.txt'); }
+  try {
+    const resp = await fetch(`${API_URL}/analyze`, { method: 'POST', body: formData });
+    const data = await resp.json();
+    if (data.error) throw new Error(Array.isArray(data.error) ? data.error[0] : data.error);
+    stopProgress();
+    setTimeout(() => { document.getElementById('loading-section').style.display = 'none'; document.getElementById('report-section').style.display = 'block'; document.getElementById('main-header').style.display = 'none'; renderReport(data); }, 500);
+  } catch (err) {
+    stopProgress(); document.getElementById('loading-section').style.display = 'none'; document.getElementById('error-section').style.display = 'block'; document.getElementById('main-header').style.display = 'none'; document.getElementById('error-message').textContent = err.message || 'Something went wrong.';
+  }
+}
+function resetToUpload() {
+  selectedFiles = []; renderFileList(); pasteZone.value = '';
+  Chart.helpers.each(Chart.instances, c => c.destroy());
+  document.querySelectorAll('.wordcloud-container svg').forEach(s => s.remove());
+  document.getElementById('report-section').style.display = 'none'; document.getElementById('error-section').style.display = 'none'; document.getElementById('loading-section').style.display = 'none'; document.getElementById('upload-section').style.display = 'block'; document.getElementById('main-header').style.display = 'block'; window.scrollTo(0, 0);
+}
+function val(v) { return Array.isArray(v) ? v[0] : v; }
+function renderReport(d) {
+  document.getElementById('report-author-name').textContent = 'Voice Analysis Results';
+  document.getElementById('corpus-info').textContent = `${val(d.corpus.n_docs)} document(s) · ~${Number(val(d.corpus.word_count)).toLocaleString()} words · ~${val(d.corpus.n_sentences)} sentences`;
+  renderSummary(d); renderRecommendations(d); renderWordCloud(d); renderPhraseCloud(d); renderDistinctiveWords(d); renderPhraseList(d); renderPunctuation(d); renderWordChoice(d); renderHedgeChart(d); renderSentenceCharts(d); renderAdvancedVocab(d); renderFunctionWords(d); renderCorpusDetails(d); window.scrollTo(0, 0);
+}
+function renderSummary(d) {
+  const s = d.summary;
+  const rows = [
+    ['Reading level', `Grade ${val(s.fk_grade)} (Flesch-Kincaid)`, 'USA Today ~8 · NYT ~12 · Academic journals ~16', 'The grade level a reader needs to understand this writing'],
+    ['Contractions', `${val(s.contraction_rate)} per 1k words`, 'Academic prose ~0 · Newspapers ~3 · Podcasts ~20+', "e.g. don't, can't — formality vs. conversational tone"],
+    ['Passive voice', `~${val(s.passive_rate)}% of sentences`, 'Ad copy ~5% · News ~12% · Scientific papers ~25%', 'Subject receives action rather than performs it'],
+    ['Direct address ("you")', `${val(s.you_rate)} per 1k words`, 'Academic ~0 · Op-eds ~3 · Self-help books ~15+', 'How often the author speaks directly to the reader'],
+    ['Avg. sentence length', `${val(s.avg_sentence_length)} words`, "Children's books ~10 · Fiction ~15 · Legal writing ~25", 'Average words per sentence'],
+    ['Sentence rhythm', `Range: ${val(s.sentence_range_low)}–${val(s.sentence_range_high)} wps`, 'Low variation (SD ~5) · Moderate (~9) · High (~14+)', 'How much sentence length varies'],
+    ['Vocabulary richness', `Yule's K = ${val(s.yules_k)}`, "Essay ~60 · Average prose ~100 · Ads & speeches ~150+", 'How much an author repeats words'],
+  ];
+  document.getElementById('summary-table').innerHTML = `<thead><tr><th></th><th>This Author</th><th>Benchmark</th></tr></thead><tbody>` + rows.map(r => `<tr><td>${r[0]} <span class="hint" data-tip="${r[3]}">?</span></td><td>${r[1]}</td><td>${r[2]}</td></tr>`).join('') + `</tbody>`;
+}
+function renderRecommendations(d) {
+  const s = d.summary;
+  const recs = [];
+  const low = Math.round(val(s.avg_sentence_length) - val(s.sd_sentence_length) * 0.5);
+  const high = Math.round(val(s.avg_sentence_length) + val(s.sd_sentence_length) * 0.5);
+  const sd = val(s.sd_sentence_length);
+  recs.push(`<strong>Sentence length:</strong> Aim for ${low}–${high} words. ${sd > 12 ? 'Mix short and long freely.' : sd > 8 ? 'Moderate variation.' : 'Keep consistent rhythm.'}`);
+  const cr = val(s.contraction_rate);
+  recs.push(`<strong>Contractions:</strong> ${cr >= 15 ? 'Use freely' : cr >= 8 ? 'Use moderately' : cr >= 1 ? 'Use sparingly' : 'Avoid — write formally'} (${cr}/1k).`);
+  const pr = val(s.passive_rate);
+  recs.push(`<strong>Passive voice:</strong> ${pr >= 20 ? 'High — mirror passive constructions.' : pr >= 10 ? 'Moderate — mix active and passive.' : 'Active voice dominant — lead with subjects.'}`);
+  const yr = val(s.you_rate);
+  recs.push(`<strong>Direct address:</strong> ${yr > 5 ? 'Address the reader as "you" freely.' : yr > 1 ? 'Occasional "you" is fine.' : 'Rarely uses "you" — write in third person.'}`);
+  const hr = val(d.hedging_certainty.hedging_rate), crt = val(d.hedging_certainty.certainty_rate);
+  recs.push(`<strong>Hedging vs. certainty:</strong> ${hr > crt * 2 ? 'Hedges more — use <em>perhaps, seems, likely</em>.' : crt > hr * 2 ? 'Asserts confidently — use <em>clearly, must, essential</em>.' : 'Balanced — use both registers.'}`);
+  if (d.transitions.top && Object.keys(d.transitions.top).length > 0) {
+    const topT = Object.keys(d.transitions.top).slice(0, 5).map(t => `<em>${t}</em>`).join(', ');
+    recs.push(`<strong>Transitions:</strong> Favorites: ${topT}. Use these; avoid others.`);
+  }
+  document.getElementById('recommendations-list').innerHTML = recs.map(r => `<div class="rec-item">${r}</div>`).join('');
+}
+function buildWordCloud(containerId, words, maxFont) {
+  const container = document.getElementById(containerId);
+  const width = container.offsetWidth || 700;
+  const height = 300;
+  if (!words || words.length === 0) { container.innerHTML = '<p style="color:#999;padding:40px;">Not enough data for word cloud.</p>'; return; }
+  const maxVal = d3.max(words, w => w.size);
+  const scale = d3.scaleLinear().domain([d3.min(words, w => w.size), maxVal]).range([11, maxFont || 48]);
+  const colorScale = d3.scaleLinear().domain([d3.min(words, w => w.size), maxVal]).range(['#4CB050', '#D4654A']);
+  d3.layout.cloud().size([width, height]).words(words.map(w => ({ text: w.text, size: scale(w.size), rawSize: w.size }))).padding(3).rotate(() => 0).fontSize(d => d.size).on('end', drawn => {
+    const svg = d3.select(`#${containerId}`).append('svg').attr('width', width).attr('height', height).append('g').attr('transform', `translate(${width / 2},${height / 2})`);
+    svg.selectAll('text').data(drawn).enter().append('text').style('font-size', d => d.size + 'px').style('font-family', 'DM Sans, sans-serif').style('font-weight', '600').style('fill', d => colorScale(d.rawSize)).attr('text-anchor', 'middle').attr('transform', d => `translate(${d.x},${d.y})`).text(d => d.text);
+  }).start();
+}
+function renderWordCloud(d) { if (!d.distinctive_words || !d.distinctive_words.cloud) return; const words = d.distinctive_words.cloud.map(item => ({ text: val(item.word), size: val(item.ratio) })).filter(w => w.text && w.size); buildWordCloud('wordcloud-single', words, 52); }
+function renderPhraseCloud(d) { if (!d.distinctive_phrases) return; let words = []; if (d.distinctive_phrases.bigrams) { words = words.concat(d.distinctive_phrases.bigrams.map(b => ({ text: val(b.bigram), size: val(b.n) }))); } if (d.distinctive_phrases.trigrams) { words = words.concat(d.distinctive_phrases.trigrams.map(t => ({ text: val(t.trigram), size: val(t.n) * 2 }))); } buildWordCloud('wordcloud-phrases', words, 40); }
+function renderDistinctiveWords(d) { if (!d.distinctive_words || !d.distinctive_words.top_words) return; const words = d.distinctive_words.top_words; document.getElementById('distinctive-words-list').innerHTML = `<h3>Top Distinctive Words</h3><div class="word-list">` + words.slice(0, 20).map(w => `<div class="item"><span class="word">${val(w.word)}</span><span class="count">${val(w.ref_count)}× (${Number(val(w.ref_rate)).toFixed(1)}/1k)</span></div>`).join('') + `</div>`; }
+function renderPhraseList(d) { if (!d.distinctive_phrases) return; let html = ''; if (d.distinctive_phrases.bigrams && d.distinctive_phrases.bigrams.length > 0) { html += '<strong>Top bigrams:</strong><div class="word-list" style="margin-bottom:16px;">'; html += d.distinctive_phrases.bigrams.slice(0, 10).map(b => `<div class="item"><span class="word">${val(b.bigram)}</span><span class="count">${val(b.n)}×</span></div>`).join('') + '</div>'; } if (d.distinctive_phrases.trigrams && d.distinctive_phrases.trigrams.length > 0) { html += '<strong>Top trigrams:</strong><div class="word-list">'; html += d.distinctive_phrases.trigrams.slice(0, 8).map(t => `<div class="item"><span class="word">${val(t.trigram)}</span><span class="count">${val(t.n)}×</span></div>`).join('') + '</div>'; } document.getElementById('phrase-list').innerHTML = html; }
+function renderPunctuation(d) {
+  const p = d.punctuation;
+  const baselines = { Commas: 61.6, Semicolons: 3.2, Colons: 3.4, 'Em-dashes': 2.5, 'Exclamation pts': 3.3, 'Question marks': 5.6 };
+  const author = { Commas: val(p.comma_rate), Semicolons: val(p.semicolon_rate), Colons: val(p.colon_rate), 'Em-dashes': val(p.dash_rate), 'Exclamation pts': val(p.excl_rate), 'Question marks': val(p.quest_rate) };
+  const labels = Object.keys(baselines);
+  const diffs = labels.map(l => Math.round(100 * (author[l] - baselines[l]) / baselines[l]));
+  const colors = diffs.map(d => d >= 0 ? '#4CB050' : '#D4654A');
+  new Chart(document.getElementById('punct-chart'), { type: 'bar', data: { labels, datasets: [{ data: diffs, backgroundColor: colors, borderRadius: 4 }] }, options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false }, title: { display: true, text: 'Punctuation: % Difference from English Average', font: { size: 15, family: 'Source Serif 4', weight: '600' }, color: '#455A64' }, tooltip: { callbacks: { label: ctx => `${ctx.raw > 0 ? '+' : ''}${ctx.raw}%` } } }, scales: { x: { grid: { color: '#E0E0E0' } }, y: { grid: { display: false } } } } });
+  document.getElementById('emdash-note').textContent = `Em-dash style: ${val(p.emdash_style)} (${val(p.emdash_count)} em-dashes, ${val(p.emdash_spaced)} spaced, ${val(p.emdash_unspaced)} unspaced)`;
+}
+function renderWordChoice(d) {
+  const c = d.contractions;
+  let cHtml = '';
+  if (val(c.total) === 0) { cHtml = '<p>This author <strong>does not use contractions</strong>.</p>'; }
+  else { cHtml = `<p>Rate: <strong>${val(c.rate)} per 1,000 words</strong> (${val(c.total)} total).</p>`; if (c.top && Object.keys(c.top).length > 0) cHtml += '<p><strong>Most common:</strong> ' + Object.entries(c.top).map(([k, v]) => `<em>${k}</em> (${val(v)})`).join(', ') + '</p>'; if (val(c.cant) > 0 || val(c.cannot) > 0) cHtml += `<p><strong>Can't vs. cannot:</strong> ${val(c.cant)}× vs. ${val(c.cannot)}×</p>`; }
+  document.getElementById('contractions-detail').innerHTML = cHtml;
+  const pv = d.passive_voice;
+  let pvHtml = `<p>~<strong>${val(pv.rate)}%</strong> of sentences use passive construction (~${val(pv.count)} detected).</p>`;
+  pvHtml += val(pv.rate) >= 20 ? '<p>High passive rate.</p>' : val(pv.rate) >= 10 ? '<p>Moderate passive voice.</p>' : '<p>Strongly active voice.</p>';
+  document.getElementById('passive-detail').innerHTML = pvHtml;
+  const da = d.direct_address;
+  document.getElementById('direct-address-detail').innerHTML = `<p><strong>"You"/"your":</strong> ${val(da.you_rate)} per 1k words (${val(da.you_count)} total).</p>`;
+  const em = d.emphasis;
+  let emHtml = `<p><strong>Rate:</strong> ${val(em.rate)} per 1k words (${val(em.total)} total).</p>`;
+  if (em.top && Object.keys(em.top).length > 0) emHtml += '<p>' + Object.entries(em.top).map(([k, v]) => `<em>${k}</em> (${val(v)})`).join(', ') + '</p>';
+  document.getElementById('emphasis-detail').innerHTML = emHtml;
+  const tr = d.transitions;
+  let trHtml = `<p><strong>Rate:</strong> ${val(tr.rate)} per 1k words (${val(tr.total)} total).</p>`;
+  if (tr.top && Object.keys(tr.top).length > 0) trHtml += '<p><strong>Inventory:</strong> ' + Object.entries(tr.top).map(([k, v]) => `<em>${k}</em> (${val(v)}×)`).join(', ') + '</p>';
+  if (tr.missing && tr.missing.length > 0) trHtml += '<p><strong>Not found:</strong> <em>' + tr.missing.slice(0, 10).map(m => val(m)).join('</em>, <em>') + '</em></p>';
+  document.getElementById('transitions-detail').innerHTML = trHtml;
+  const th = d.that_complementizer;
+  let thHtml = '';
+  if (val(th.total) < 3) { thHtml = '<p>Not enough instances to assess.</p>'; }
+  else { thHtml = `<p>Includes <em>that</em> <strong>${val(th.inclusion_pct)}%</strong> of the time (${val(th.with_count)}/${val(th.total)}).</p>`; thHtml += val(th.inclusion_pct) >= 70 ? '<p>Prefers explicit <em>that</em>.</p>' : val(th.inclusion_pct) <= 30 ? '<p>Drops <em>that</em>.</p>' : '<p>Mixed usage.</p>'; }
+  document.getElementById('that-detail').innerHTML = thHtml;
+  const hc = d.hedging_certainty;
+  document.getElementById('hedge-detail').innerHTML = `<p><strong>Hedging:</strong> ${val(hc.hedging_rate)}/1k (${val(hc.hedging_total)} total) · <strong>Certainty:</strong> ${val(hc.certainty_rate)}/1k (${val(hc.certainty_total)} total)</p>`;
+}
+function renderHedgeChart(d) {
+  const hc = d.hedging_certainty;
+  const hedgeWords = hc.top_hedging ? Object.entries(hc.top_hedging) : [];
+  const certWords = hc.top_certainty ? Object.entries(hc.top_certainty) : [];
+  const labels = [...hedgeWords.map(w => w[0]), ...certWords.map(w => w[0])];
+  const values = [...hedgeWords.map(w => -val(w[1])), ...certWords.map(w => val(w[1]))];
+  const colors = [...hedgeWords.map(() => '#E8963A'), ...certWords.map(() => '#4CB050')];
+  if (labels.length === 0) return;
+  new Chart(document.getElementById('hedge-chart'), { type: 'bar', data: { labels, datasets: [{ data: values, backgroundColor: colors, borderRadius: 4 }] }, options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false }, title: { display: true, text: 'Hedging vs. Certainty', font: { size: 15, family: 'Source Serif 4', weight: '600' }, color: '#455A64' }, tooltip: { callbacks: { label: ctx => `${Math.abs(ctx.raw)} occurrences` } } }, scales: { x: { ticks: { callback: v => Math.abs(v) }, grid: { color: '#E0E0E0' } }, y: { grid: { display: false } } } } });
+}
+function renderSentenceCharts(d) {
+  const sc = d.sentence_construction;
+  const wps = sc.wps_histogram.map(v => val(v));
+  const spp = sc.sents_per_para_histogram.map(v => val(v));
+  const wpsBins = {};
+  wps.forEach(v => { const bin = Math.floor(v / 5) * 5; wpsBins[bin] = (wpsBins[bin] || 0) + 1; });
+  const wpsLabels = Object.keys(wpsBins).sort((a, b) => a - b);
+  new Chart(document.getElementById('sentence-hist'), { type: 'bar', data: { labels: wpsLabels.map(l => `${l}–${+l + 4}`), datasets: [{ data: wpsLabels.map(l => wpsBins[l]), backgroundColor: 'rgba(76,176,80,0.35)', borderColor: '#4CB050', borderWidth: 1 }] }, options: { responsive: true, plugins: { legend: { display: false }, title: { display: true, text: 'Sentence Length Distribution', font: { size: 15, family: 'Source Serif 4', weight: '600' }, color: '#455A64' } }, scales: { y: { title: { display: true, text: 'Frequency' } }, x: { title: { display: true, text: 'Words per sentence' } } } } });
+  const sppBins = {};
+  spp.forEach(v => { sppBins[v] = (sppBins[v] || 0) + 1; });
+  const sppLabels = Object.keys(sppBins).sort((a, b) => a - b);
+  new Chart(document.getElementById('para-hist'), { type: 'bar', data: { labels: sppLabels, datasets: [{ data: sppLabels.map(l => sppBins[l]), backgroundColor: 'rgba(76,176,80,0.35)', borderColor: '#4CB050', borderWidth: 1 }] }, options: { responsive: true, plugins: { legend: { display: false }, title: { display: true, text: 'Sentences per Paragraph', font: { size: 15, family: 'Source Serif 4', weight: '600' }, color: '#455A64' } }, scales: { y: { title: { display: true, text: 'Frequency' } }, x: { title: { display: true, text: 'Sentences' } } } } });
+  const s = d.summary;
+  document.getElementById('sentence-targets').innerHTML = `<div class="rec-item"><strong>Sentence length:</strong> Aim for ${Math.round(val(s.avg_sentence_length) - val(s.sd_sentence_length) * 0.5)}–${Math.round(val(s.avg_sentence_length) + val(s.sd_sentence_length) * 0.5)} words. Range: ${val(s.sentence_range_low)}–${val(s.sentence_range_high)}.</div><div class="rec-item"><strong>Paragraph length:</strong> Average ${val(sc.avg_sents_per_para)} sentences (~${val(sc.avg_words_per_para)} words).</div>`;
+}
+function renderAdvancedVocab(d) {
+  const s = d.summary;
+  const yk = val(s.yules_k);
+  const ykDesc = yk > 150 ? 'high repetition' : yk > 100 ? 'moderate repetition' : 'low repetition (diverse)';
+  document.getElementById('vocab-profile-detail').innerHTML = `<p><strong>Type-Token Ratio:</strong> ${val(s.ttr)}</p><p><strong>Hapax Legomena:</strong> ${val(s.hapax_ratio)}% used only once</p><p><strong>Yule's K:</strong> ${yk} — ${ykDesc}</p><p><strong>Avg word length:</strong> ${val(s.avg_word_length)} chars, ${val(s.avg_syllables)} syllables</p>`;
+  document.getElementById('reading-level-detail').innerHTML = `<table class="summary-table"><thead><tr><th>Index</th><th>Score</th><th>Grade</th></tr></thead><tbody><tr><td>Flesch-Kincaid</td><td>${val(s.fk_grade)}</td><td>~Grade ${Math.round(val(s.fk_grade))}</td></tr><tr><td>Gunning Fog</td><td>${val(s.fog)}</td><td>~Grade ${Math.round(val(s.fog))}</td></tr><tr><td>Coleman-Liau</td><td>${val(s.coleman_liau)}</td><td>~Grade ${Math.round(val(s.coleman_liau))}</td></tr></tbody></table><p style="margin-top:12px;"><strong>Target:</strong> Grade ${Math.max(Math.round(val(s.fk_grade)) - 1, 1)}–${Math.round(val(s.fk_grade)) + 1}.</p>`;
+}
+function renderFunctionWords(d) {
+  if (!d.function_words || !d.function_words.divergence) return;
+  const fw = d.function_words.divergence;
+  const labels = fw.map(f => val(f.word));
+  const values = fw.map(f => val(f.pct_divergence));
+  const colors = values.map(v => v >= 0 ? '#4CB050' : '#D4654A');
+  new Chart(document.getElementById('fw-chart'), { type: 'bar', data: { labels, datasets: [{ data: values, backgroundColor: colors, borderRadius: 4 }] }, options: { indexAxis: 'y', responsive: true, plugins: { legend: { display: false }, title: { display: true, text: 'Function Word Fingerprint: % Divergence', font: { size: 15, family: 'Source Serif 4', weight: '600' }, color: '#455A64' }, tooltip: { callbacks: { label: ctx => `${ctx.raw > 0 ? '+' : ''}${ctx.raw}%` } } }, scales: { x: { grid: { color: '#E0E0E0' } }, y: { grid: { display: false } } } } });
+  const over = fw.filter(f => val(f.divergence) > 0).slice(0, 3);
+  const under = fw.filter(f => val(f.divergence) < 0).slice(0, 3);
+  let notes = '';
+  if (over.length) notes += '<p><strong>Overuses:</strong> ' + over.map(f => `<em>${val(f.word)}</em> (+${val(f.pct_divergence)}%)`).join(', ') + '</p>';
+  if (under.length) notes += '<p><strong>Underuses:</strong> ' + under.map(f => `<em>${val(f.word)}</em> (${val(f.pct_divergence)}%)`).join(', ') + '</p>';
+  document.getElementById('fw-notes').innerHTML = notes;
+}
+function renderCorpusDetails(d) {
+  document.getElementById('corpus-detail').innerHTML = `<p>${val(d.corpus.n_docs)} document(s) · ~${Number(val(d.corpus.word_count)).toLocaleString()} words · ~${val(d.corpus.n_sentences)} sentences · ~${val(d.corpus.n_paragraphs)} paragraphs</p><p class="note">Report generated ${new Date().toLocaleDateString()}</p>`;
+}
+document.getElementById('contact-link').addEventListener('click', function(e) { e.preventDefault(); window.location.href = 'mai' + 'lto:' + 'Andrew' + '@' + 'GhostRight.org'; });
+</script>
+
+<script>
+const PREBAKED_DATA = {"corpus": {"n_docs": [1], "word_count": [10006], "n_sentences": [510], "n_paragraphs": [1]}, "summary": {"fk_grade": [8.3], "fog": [11.1], "coleman_liau": [8.1], "avg_sentence_length": [19.8], "sd_sentence_length": [11.4], "sentence_range_low": [6], "sentence_range_high": [35], "contraction_rate": [1.3], "passive_rate": [25], "you_rate": [1.3], "yules_k": [122.9], "ttr": [0.237], "hapax_ratio": [14.7], "avg_word_length": [4.3], "avg_syllables": [1.37]}, "sentence_construction": {"wps_histogram": [60, 30, 28, 13, 6, 28, 22, 15, 34, 30, 7, 15, 7, 17, 45, 42, 9, 5, 82, 30, 6, 19, 23, 29, 38, 13, 35, 27, 23, 5, 6, 19, 26, 27, 19, 22, 10, 28, 16, 8, 30, 16, 16, 14, 29, 24, 22, 26, 26, 14, 19, 15, 13, 20, 22, 9, 36, 39, 11, 5, 38, 18, 12, 22, 21, 13, 16, 8, 9, 11, 16, 26, 25, 17, 19, 23, 24, 15, 16, 51, 28, 22, 17, 14, 21, 24, 31, 12, 17, 9, 5, 35, 13, 29, 16, 22, 17, 11, 11, 13, 28, 16, 36, 20, 16, 28, 24, 31, 11, 15, 21, 13, 16, 17, 14, 22, 14, 16, 17, 25, 22, 6, 23, 19, 25, 10, 17, 26, 30, 8, 14, 11, 30, 25, 11, 16, 15, 5, 16, 28, 45, 34, 26, 18, 23, 21, 31, 30, 9, 5, 1, 20, 15, 25, 14, 25, 26, 38, 18, 19, 35, 29, 14, 31, 33, 29, 17, 19, 33, 37, 29, 33, 18, 16, 8, 19, 6, 10, 10, 11, 10, 3, 8, 18, 19, 8, 18, 16, 10, 14, 19, 17, 20, 18, 4, 33, 31, 20, 18, 18, 10, 18, 4, 9, 21, 12, 28, 10, 5, 16, 27, 13, 5, 3, 8, 11, 21, 18, 10, 17, 32, 19, 17, 31, 39, 17, 39, 7, 6, 27, 12, 16, 25, 20, 28, 42, 36, 32, 10, 24, 11, 11, 36, 18, 29, 9, 49, 18, 20, 21, 29, 6, 13, 6, 15, 5, 13, 6, 14, 13, 5, 12, 13, 22, 30, 2, 9, 19, 16, 23, 15, 9, 11, 26, 45, 42, 47, 7, 9, 11, 27, 38, 20, 30, 9, 8, 24, 27, 37, 16, 26, 6, 20, 19, 29, 36, 19, 50, 48, 34, 31, 21, 16, 37, 11, 25, 19, 3, 20, 10, 28, 11, 16, 5, 17, 27, 4, 38, 24, 14, 23, 25, 55, 6, 17, 15, 20, 43, 16, 17, 20, 6, 14, 9, 46, 29, 46, 18, 28, 15, 6, 34, 19, 7, 24, 15, 39, 27, 60, 26, 6, 8, 28, 6, 26, 22, 28, 17, 20, 22, 6, 31, 12, 25, 10, 26, 13, 10, 14, 5, 47, 23, 7, 6, 11, 20, 19, 29, 26, 29, 28, 9, 10, 17, 16, 6, 22, 22, 6, 11, 15, 8, 5, 13, 18, 4, 5, 17, 6, 18, 40, 13, 17, 8, 17, 15, 7, 23, 15, 14, 29, 16, 18, 13, 8, 18, 47, 20, 7, 11, 11, 28, 14, 15, 5, 11, 23, 42, 7, 24, 13, 20, 36, 32, 3, 14, 23, 21, 25, 8, 30, 37, 19, 18, 42, 9, 38, 14, 21, 36, 14, 23, 17, 21, 29, 47, 17, 21, 22, 32, 33, 43, 18, 33, 24, 11, 4, 22, 24, 6, 14, 11, 25, 1, 10, 19, 26, 13, 4, 13, 37, 18, 10, 3, 57, 68, 32, 15, 6, 6, 11, 5, 17, 12, 8, 5, 24, 22, 17, 18, 13, 23, 19, 27, 44, 17, 5, 6, 12, 3], "avg_sents_per_para": [510], "sd_sents_per_para": ["NA"], "avg_words_per_para": [10101], "sents_per_para_histogram": [510]}, "punctuation": {"comma_rate": [75.8], "semicolon_rate": [5.7], "colon_rate": [0.4], "dash_rate": [1.1], "excl_rate": [0.6], "quest_rate": [1.3], "emdash_count": [11], "emdash_spaced": [0], "emdash_unspaced": [11], "emdash_style": ["Unspaced"]}, "contractions": {"total": [13], "rate": [1.3], "top": {"wouldn't": [2], "i'm": [2], "he's": [2], "don't": [1], "it's": [1], "that's": [1], "i'll": [1], "we've": [1]}, "cant": [0], "cannot": [0], "dont": [1], "do_not": [1]}, "passive_voice": {"rate": [25], "count": [127]}, "direct_address": {"you_count": [13], "you_rate": [1.3]}, "hedging_certainty": {"hedging_rate": [2.5], "hedging_total": [25], "certainty_rate": [2.7], "certainty_total": [27], "top_hedging": {"could": [18], "might": [4], "possibly": [2], "likely": [1]}, "top_certainty": {"never": [19], "always": [6], "inevitably": [1], "fundamental": [1]}}, "emphasis": {"rate": [2.6], "total": [26], "top": {"even": [12], "very": [8], "just": [4], "literally": [1], "truly": [1]}}, "transitions": {"rate": [1.2], "total": [12], "top": {"at the same time": [3], "on the other hand": [2], "in short": [1], "indeed": [1], "nevertheless": [1], "in fact": [1], "for instance": [1], "to be sure": [1], "of course": [1]}, "missing": ["in other words", "that said", "to be clear", "put differently", "however", "moreover", "furthermore", "nonetheless", "for example", "in particular", "in addition", "as a result", "to put it another way", "the point is"]}, "that_complementizer": {"inclusion_pct": [33], "total": [15], "with_count": [5], "without_count": [10]}, "distinctive_words": {"cloud": [{"word": "spitz", "ratio": 1173.37}, {"word": "toil", "ratio": 945.13}, {"word": "husky", "ratio": 769.01}, {"word": "yelp", "ratio": 742.47}, {"word": "hurl", "ratio": 739.44}, {"word": "fling", "ratio": 603.08}, {"word": "hatchet", "ratio": 523.77}, {"word": "lash", "ratio": 508.56}, {"word": "gaunt", "ratio": 486.76}, {"word": "poise", "ratio": 485.65}, {"word": "soundly", "ratio": 469.93}, {"word": "shiver", "ratio": 459.92}, {"word": "tangle", "ratio": 445.8}, {"word": "eagerness", "ratio": 438.01}, {"word": "mercilessly", "ratio": 421.24}, {"word": "bristle", "ratio": 408.61}, {"word": "quiver", "ratio": 392.72}, {"word": "growl", "ratio": 356.77}, {"word": "grooms", "ratio": 340.01}, {"word": "ration", "ratio": 320.97}, {"word": "primordial", "ratio": 317.86}, {"word": "fang", "ratio": 315.57}, {"word": "snug", "ratio": 292.71}, {"word": "crate", "ratio": 282.03}, {"word": "mutiny", "ratio": 267.72}, {"word": "cunning", "ratio": 252.29}, {"word": "grub", "ratio": 246.46}, {"word": "yawn", "ratio": 238.4}, {"word": "culprit", "ratio": 228.18}, {"word": "thaw", "ratio": 223.92}, {"word": "tooth", "ratio": 207.77}, {"word": "sweater", "ratio": 195.17}, {"word": "saloon", "ratio": 194.75}, {"word": "gloomy", "ratio": 191.51}, {"word": "thrash", "ratio": 182.84}, {"word": "roar", "ratio": 171.26}, {"word": "whip", "ratio": 168.45}, {"word": "punish", "ratio": 163.44}, {"word": "agony", "ratio": 160.15}, {"word": "harness", "ratio": 156.24}, {"word": "plunge", "ratio": 148.12}, {"word": "jaw", "ratio": 147.25}, {"word": "sled", "ratio": 145.22}, {"word": "civilized", "ratio": 144.29}, {"word": "brute", "ratio": 135.39}], "top_words": [{"word": "francois", "ref_count": 29, "ref_rate": 2.87}, {"word": "perrault", "ref_count": 25, "ref_rate": 2.47}, {"word": "himself", "ref_count": 23, "ref_rate": 2.27}, {"word": "though", "ref_count": 16, "ref_rate": 1.58}, {"word": "buck's", "ref_count": 15, "ref_rate": 1.48}, {"word": "sprang", "ref_count": 14, "ref_rate": 1.38}, {"word": "huskies", "ref_count": 10, "ref_rate": 0.99}, {"word": "brought", "ref_count": 9, "ref_rate": 0.89}, {"word": "sweater", "ref_count": 9, "ref_rate": 0.89}, {"word": "morning", "ref_count": 8, "ref_rate": 0.79}, {"word": "matter", "ref_count": 8, "ref_rate": 0.79}, {"word": "throat", "ref_count": 8, "ref_rate": 0.79}, {"word": "tongue", "ref_count": 8, "ref_rate": 0.79}, {"word": "harness", "ref_count": 7, "ref_rate": 0.69}, {"word": "hundred", "ref_count": 7, "ref_rate": 0.69}, {"word": "learned", "ref_count": 7, "ref_rate": 0.69}, {"word": "trouble", "ref_count": 7, "ref_rate": 0.69}, {"word": "billee", "ref_count": 7, "ref_rate": 0.69}, {"word": "manuel", "ref_count": 7, "ref_rate": 0.69}, {"word": "nights", "ref_count": 7, "ref_rate": 0.69}]}, "distinctive_phrases": {"bigrams": [{"bigram": "red sweater", "n": 9}, {"bigram": "saloon keeper", "n": 6}, {"bigram": "left alone", "n": 4}, {"bigram": "sprang upon", "n": 4}, {"bigram": "around neck", "n": 3}, {"bigram": "came back", "n": 3}, {"bigram": "dog driver", "n": 3}, {"bigram": "half breed", "n": 3}, {"bigram": "team dogs", "n": 3}], "trigrams": [{"trigram": "found yellow metal", "n": 2}, {"trigram": "little weazened man", "n": 2}, {"trigram": "nights neither ate", "n": 2}, {"trigram": "rope around neck", "n": 2}]}, "function_words": {"divergence": [{"word": "was", "author_rate": 26.63, "english_avg": 10, "divergence": 16.63, "pct_divergence": 166}, {"word": "they", "author_rate": 7.22, "english_avg": 3, "divergence": 4.22, "pct_divergence": 141}, {"word": "and", "author_rate": 49.1, "english_avg": 28, "divergence": 21.1, "pct_divergence": 75}, {"word": "by", "author_rate": 5.44, "english_avg": 4, "divergence": 1.44, "pct_divergence": 36}, {"word": "of", "author_rate": 24.94, "english_avg": 36, "divergence": -11.05, "pct_divergence": -31}, {"word": "in", "author_rate": 15.14, "english_avg": 22, "divergence": -6.85, "pct_divergence": -31}, {"word": "this", "author_rate": 2.97, "english_avg": 4, "divergence": -1.03, "pct_divergence": -26}, {"word": "but", "author_rate": 6.23, "english_avg": 5, "divergence": 1.23, "pct_divergence": 25}, {"word": "to", "author_rate": 21.08, "english_avg": 26, "divergence": -4.91, "pct_divergence": -19}, {"word": "not", "author_rate": 5.94, "english_avg": 5, "divergence": 0.94, "pct_divergence": 19}]}};
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('main-header').style.display = 'none';
+  document.getElementById('upload-section').style.display = 'none';
+  document.getElementById('report-section').style.display = 'block';
+  renderReport(PREBAKED_DATA);
+  document.getElementById('report-author-name').textContent = 'Jack London';
+  document.getElementById('para-hist-container').style.display='none';
+  document.getElementById('corpus-info').innerHTML = 'Sample profile &nbsp;&middot;&nbsp; See also: <a href="lincoln.html" style="color:var(--green);font-weight:600;">Abraham Lincoln</a> · <a href="austen.html" style="color:var(--green);font-weight:600;">Jane Austen</a>';
+});
+</script>
+</body>
+</html>
